@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalles de la Montaña</title>
+    <link rel="stylesheet" href="../static/css/montana-detalle.css">
+    <script defer src="../static/js/montana-detalle.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/js/all.min.js"></script>
+</head>
+<body>
+
+    <div class="montana-container">
+        <!-- Botones de navegación -->
+        <button id="prevMontana" class="nav-button left">&#9665;</button>
+
+        <div class="montana-content">
+            <img id="montanaImagen" class="montana-img" src="" alt="Imagen de la montaña">
+            <h1 id="montanaNombre"></h1>
+            <p id="montanaUbicacion"></p>
+            <p id="montanaAltura"></p>
+            <p id="montanaDescripcion"></p>
+            <div id="montanaMapa"></div>
+
+            <!-- Sección de comentarios y calificación -->
+            <div class="comments-section">
+                <h3>Comentarios</h3>
+                <div id="calificacionPromedio" class="star-rating"></div>
+
+                <div id="comentariosContainer"></div>
+
+                <form id="commentForm">
+                    <textarea id="comentarioInput" placeholder="Escribe tu comentario..."></textarea>
+                    
+                    <div class="rating">
+                        <input type="radio" name="rating" value="5" id="star5"><label for="star5">★</label>
+                        <input type="radio" name="rating" value="4" id="star4"><label for="star4">★</label>
+                        <input type="radio" name="rating" value="3" id="star3"><label for="star3">★</label>
+                        <input type="radio" name="rating" value="2" id="star2"><label for="star2">★</label>
+                        <input type="radio" name="rating" value="1" id="star1"><label for="star1">★</label>
+                    </div>
+
+                    <button type="submit">Enviar Comentario</button>
+                </form>
+            </div>
+        </div>
+
+        <button id="nextMontana" class="nav-button right">&#9655;</button>
+    </div>
+
+</body>
+</html>

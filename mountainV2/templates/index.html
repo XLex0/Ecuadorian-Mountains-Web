@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inti Cumbres</title>
+    <link rel="icon" href="../static/img/logo.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <nav class="container-desplegable">
+        <ul>
+            <li><a href="/"><i class="fas fa-home"></i> Inicio</a></li>
+            <li><a href="#montanas"><i class="fas fa-mountain"></i> Montañas</a></li>
+            <li><a href="#rutas"><i class="fas fa-route"></i> Rutas</a></li>
+            <li><a href="#guias"><i class="fas fa-user-tie"></i> Guías</a></li>
+            <li><a href="#equipo"><i class="fas fa-hiking"></i> Equipo</a></li>
+            <li><a href="#temporadas"><i class="fas fa-calendar-alt"></i> Temporadas</a></li>
+            <li><a href="#refugios"><i class="fas fa-home"></i> Refugios</a></li>
+        </ul>
+    </nav>
+
+    <div class="container-superior">
+        <nav class="nav-main">
+            <ul class="nav-menu">
+                <li>
+                    <img src="../static/img/logo.ico" alt="Inti Cumbres Logo" class="nav-logo">
+                </li>
+                <li>
+                    <input type="text" placeholder="Buscar..." style="padding: 0.5rem">
+                    <button style="padding: 0.5rem"><i class="fas fa-search"></i></button>
+                </li>
+                <li>
+                    <a href="/login" style="margin-right: 1rem">Iniciar Sesión</a>
+                    <a href="/register">Registro</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <div class="tabs-container">
+        <div class="tabs-navigation">
+            <button class="tab-button active" data-tab="montanas">Montañas</button>
+            <button class="tab-button" data-tab="rutas">Rutas</button>
+            <button class="tab-button" data-tab="guias">Guías</button>
+            <button class="tab-button" data-tab="equipo">Equipo</button>
+            <button class="tab-button" data-tab="temporadas">Temporadas</button>
+            <button class="tab-button" data-tab="refugios">Refugios</button>
+        </div>
+
+        <div id="montanas" class="tab-content active">
+            <div id="mountains-container"></div>
+        </div>
+
+        <div id="rutas" class="tab-content">
+            <div id="routes-container"></div>
+        </div>
+
+        <div id="guias" class="tab-content">
+            <div id="guides-container"></div>
+        </div>
+
+        <div id="equipo" class="tab-content">
+            <div id="equipment-container"></div>
+        </div>
+
+        <div id="temporadas" class="tab-content">
+            <div id="seasons-container"></div>
+        </div>
+
+        <div id="refugios" class="tab-content">
+            <div id="shelters-container"></div>
+        </div>
+    </div>
+
+    <script>
+        // Cambio de pestañas
+        document.querySelectorAll('.tab-button').forEach(button => {
+            button.addEventListener('click', () => {
+                document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+                
+                button.classList.add('active');
+                document.getElementById(button.dataset.tab).classList.add('active');
+                
+                // Cargar contenido dinámicamente
+                loadTabContent(button.dataset.tab);
+            });
+        });
+
+        // Función para cargar contenido de las pestañas
+        function loadTabContent(tab) {
+            const endpoint = tab === 'montanas' ? 'montanas' : 
+                           tab === 'rutas' ? 'rutas' : 
+                           tab === 'guias' ? 'guias' : 
+                           tab === 'equipo' ? 'equipo' :
+                           tab === 'temporadas' ? 'temporadas' : 'refugios';
+
+            fetch(`/IntiCumbres/configBD/api.php?endpoint=${endpoint}`)
+                .then(response => response.json())
+                .then(data => {
+                    const container = document.getElementById(`${tab}-container`);
+                    container.innerHTML = ''; // Limpiar contenido existente
+                    
+                    data.forEach(item => {
+                        const card = createCard(item, tab);
+                        container.appendChild(card);
+                    });
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        // Función para crear tarjetas de contenido
+        function createCard(item, type) {
+            const card = document.createElement('div');
+            card.className = 'content-card';
+            
+            // Contenido específico según el tipo
+            switch(type) {
+                case 'montanas':
+                    card.innerHTML = `
+                        <h3>${item.nombre}</h3>
+                        <img src="${item.urlImagenPrincipal}" alt="${item.nombre}">
+                        <p>Altura: ${item.altura}m</p>
+                        <p>Ubicación: ${item.ubicacion}</p>
+                        <p>${item.descripcion}</p>
+                        <div class="comments-section">
+                            <h4>Comentarios</h4>
+                            <div class="star-rating">
+                                ★★★★★
+                            </div>
+                            <form class="comment-form">
+                                <textarea class="comment-input" placeholder="Escribe tu comentario..."></textarea>
+                                <button type="submit">Enviar</button>
+                            </form>
+                        </div>
+                    `;
+                    break;
+                // Agregar casos para otros tipos de contenido
+            }
+            
+            return card;
+        }
+
+        // Cargar contenido inicial
+        loadTabContent('montanas');
+    </script>
+</body>
+</html>

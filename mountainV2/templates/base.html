@@ -1,0 +1,85 @@
+<!-- base.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inti Cumbres - {% block title %}{% endblock %}</title>
+    <link rel="icon" href="../static/img/logo.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <link rel="stylesheet" href="/static/css/montanas.css">
+    <script src="/static/js/montanas.js" defer></script>
+    <script src="/static/js/montana-detalle.js" defer></script>    
+</head>
+<body>
+    <!-- Menú desplegable -->
+    <nav class="container-desplegable">
+        <ul>
+            <li><a href="/"><i class="fas fa-home"></i> Inicio</a></li>
+            <li><a href="/montanas"><i class="fas fa-mountain"></i> Montañas</a></li>
+            <li><a href="/mapa"><i class="fas fa-map"></i> Mapa</a></li>
+            <li><a href="/rutas"><i class="fas fa-route"></i> Rutas</a></li>
+            <li><a href="/guias"><i class="fas fa-user-tie"></i> Guías</a></li>
+            <li><a href="/equipo"><i class="fas fa-hiking"></i> Equipo</a></li>
+            <li><a href="/temporadas"><i class="fas fa-calendar-alt"></i> Temporadas</a></li>
+            <li><a href="/refugios"><i class="fas fa-home"></i> Refugios</a></li>
+        </ul>
+        <div class="menu-toggle">
+            <i class="fas fa-chevron-right"></i>
+        </div>
+    </nav>
+
+    <!-- Barra superior -->
+    <div class="container-superior">
+        <nav class="nav-main">
+            <ul class="nav-menu">
+                <li>
+                    <img src="images/IntiCumbresLogo.png" alt="Inti Cumbres Logo" class="nav-logo">
+                </li>
+                <li class="search-container">
+                    <input type="text" placeholder="Buscar montañas, rutas..." class="search-input">
+                    <button class="search-button">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </li>
+                <li class="auth-buttons">
+                    <a href="/login" class="btn-login">Iniciar Sesión</a>
+                    <a href="/register" class="btn-register">Registro</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Contenido principal -->
+    <main class="main-content">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Sobre Inti Cumbres</h3>
+                <p>Explora las majestuosas montañas y volcanes de Ecuador</p>
+            </div>
+            <div class="footer-section">
+                <h3>Enlaces Rápidos</h3>
+                <ul>
+                    <li><a href="/contacto">Contacto</a></li>
+                    <li><a href="/about">Sobre Nosotros</a></li>
+                    <li><a href="/terminos">Términos y Condiciones</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Síguenos</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
