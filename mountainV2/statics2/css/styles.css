@@ -1,0 +1,113 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Menú lateral */
+#menu-lateral {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    width: 200px;
+    background-color: #7a9c42;
+    padding: 10px;
+    transition: transform 0.3s ease-in-out;
+    transform: translateX(-100%);
+}
+
+#menu-lateral.active {
+    transform: translateX(0);
+}
+
+#menu-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: white;
+    margin-bottom: 10px;
+}
+
+#menu-list {
+    list-style: none;
+}
+
+#menu-list li {
+    margin: 10px 0;
+}
+
+#menu-list a {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+}
+
+/* Header */
+#header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #7a9c42;
+    padding: 10px 20px;
+    color: white;
+}
+
+#search-container {
+    display: flex;
+    align-items: center;
+}
+
+#search {
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+}
+
+#search-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    margin-left: 5px;
+}
+
+#account {
+    display: flex;
+    align-items: center;
+}
+
+#account-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+/* Contenido principal */
+#main-content {
+    text-align: center;
+    margin-top: 20px;
+}
+
+#titulo {
+    font-size: 28px;
+    color: #333;
+}
+
+#imagen-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+#montaña-imagen {
+    max-width: 90%;
+    height: auto;
+    border: 5px solid #5a7d38;
+    border-radius: 10px;
+}
