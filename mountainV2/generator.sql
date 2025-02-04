@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS rutas (
     nombre VARCHAR(255) NOT NULL,
     dificultad ENUM('Fácil', 'Intermedia', 'Difícil') NOT NULL,
     distancia DECIMAL(5,2) NOT NULL,
-    desnivel_acumulado DECIMAL(5,2),
+    desnivel_acumulado DECIMAL(10,2),
     punto_partida VARCHAR(255),
     punto_llegada VARCHAR(255),
     descripcion TEXT,
@@ -151,23 +151,26 @@ VALUES
 -- 🔹 Insertar datos en la tabla de usuarios (para pruebas)
 INSERT INTO usuarios (username, email, password_hash) VALUES
 ('admin', 'admin@example.com', SHA2('admin123', 256)),
+('Juanito', 'juanito@example.com', SHA2('admin123', 256)),
+('Mario', 'Mario@example.com', SHA2('admin123', 256)),
 ('usuario1', 'usuario1@example.com', SHA2('password123', 256));
+
 
 -- 🔹 Insertar comentarios de prueba
 INSERT INTO comentarios (montana_id, usuario_id, comentario, calificacion)
 VALUES (1, 1, 'Hermosa montaña, pero el ascenso es difícil.', 5),
        (1, 2, 'Una vista increíble desde la cumbre.', 4),
-       (2, 1, 'El Cayambe es un volcán impresionante.', 5),
        (2, 2, 'El glaciar es muy bonito.', 4),
-       (3, 1, 'El Antisana es un volcán poco conocido.', 3),
+       (3, 4, 'El Antisana es un volcán poco conocido.', 3),
+       (3, 3, 'El Antisana me gusto jaja ¿.', 3),
        (3, 2, 'La ruta de ascenso es muy técnica.', 4),
-       (4, 1, 'El Cotopaxi es un volcán icónico de Ecuador.', 5),
+       (4, 2, 'El Cotopaxi es un volcán icónico de Ecuador.', 5),
        (4, 2, 'El refugio es muy cómodo.', 4),
-       (5, 1, 'El Tungurahua es un volcán activo.', 3),
-       (5, 2, 'La vista desde el cráter es impresionante.', 4),
+       (5, 3, 'El Tungurahua es un volcán activo.', 3),
        (6, 1, 'El Pichincha es una montaña accesible desde Quito.', 4),
+       (6, 4, 'Este es un comentario holaaa', 4),
        (6, 2, 'La ruta de ascenso es muy empinada.', 3),
-       (7, 1, 'Los Ilinizas son dos montañas gemelas.', 4),
+       (7, 4, 'Los Ilinizas son dos montañas gemelas.', 4),
        (7, 2, 'El ascenso es muy técnico.', 3);
 
 -- 🔹 Insertar datos en rutas

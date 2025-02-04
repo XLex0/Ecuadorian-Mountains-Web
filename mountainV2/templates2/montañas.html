@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Montañas</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="../statics2/js/mountain.js"></script>
+    <script defer src="../statics2/js/comentarios.js"></script>
+    <link rel="stylesheet" href="../statics2/css/styles.css">
+</head>
+<body>
+
+
+    <!-- Contenido principal -->
+    <main id="main-content">
+     
+
+        <section class="info-container">
+            <h1 id="mountainName" class="mountain-title"></h1>
+
+            <div id="imagenContainer" class="image-box">
+                <img id="mountainImage" src="" alt="Imagen de Montaña">
+            </div>
+        </section>
+
+        <section class="info-container">
+            <h2>Información Relevante</h2>
+            <p id="descripcion" class="descripcion-texto"></p>
+        </section>
+
+        <section class="info-container">
+            <h2>Detalles</h2>
+            <ul id="detalles" class="detalle-lista">
+                <li>🌍 Longitud: <span id="longitud"></span></li>
+                <li>🌍 Latitud: <span id="latitud"></span></li>
+                <li>📍 Ubicación: <span id="ubicacion"></span></li>
+                <li>⛰️ Altura: <span id="altura"></span></li>
+                <li>🗻 Tipo: <span id="tipo"></span></li>
+            </ul>
+        </section>
+
+        <!-- Sección de comentarios -->
+        <section class="info-container">
+            <h2>Comentarios</h2>
+            <table class="comentarios-table">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Comentario</th>
+                        <th>Calificación</th>
+                        <th>Fecha</th>
+                    </tr>
+                </thead>
+                <tbody id="comentarios">
+                </tbody>
+            </table>
+        </section>
+
+    </main>
+</body>
+</html>

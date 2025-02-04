@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inti Cumbres</title>
+    <link rel="stylesheet" href="../statics2/css/styles.css">
+    <script defer src="../statics2/js/script2.js"></script>
+</head>
+<body>
+
+
+    <!-- Contenido principal -->
+    <main id="main-content">
+        <h1 id="titulo">Montañas Ecuador</h1>
+        <br>
+        <div id="imagen-container" style="max-width: 600px; margin: auto; position: relative;">
+            <div style="background-color: rgb(106, 221, 106); position: absolute; top: -10px; left: -10px; right: -10px; bottom: -10px; z-index: -1;"></div>
+            <img src="../statics2/img/chimborazo.jpg" alt="Imagen de Montaña" style="width: 100%; position: relative;">
+        </div>
+        <br>
+        <div style="text-align: center; padding: 20px; background-color: #f9f9f9; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+            <h2 style="color: #2c3e50;">Sobre Nosotros</h2>
+            <p style="color: #34495e; font-size: 1.1em; line-height: 1.6;">
+            Inti Cumbres es una empresa dedicada a ofrecer experiencias únicas de montañismo
+            en Ecuador. Nuestro equipo de guías expertos te llevará a explorar las cumbres más 
+            impresionantes del país, asegurando una aventura segura y emocionante.
+            </p>
+        </div>
+
+        <!-- Sección de Contáctenos -->
+        <section id="contacto" style="text-align: center; padding: 20px; background-color: #e9ecef; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); margin-top: 20px;">
+            <h2 style="color: #2c3e50;">Contáctenos</h2>
+            <form action="enviar_mensaje.php" method="post" style="max-width: 600px; margin: auto;">
+            <div style="margin-bottom: 15px;">
+                <label for="nombre" style="display: block; color: #34495e;">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
+            </div>
+            <div style="margin-bottom: 15px;">
+                <label for="email" style="display: block; color: #34495e;">Correo Electrónico:</label>
+                <input type="email" id="email" name="email" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
+            </div>
+            <div style="margin-bottom: 15px;">
+                <label for="mensaje" style="display: block; color: #34495e;">Mensaje:</label>
+                <textarea id="mensaje" name="mensaje" rows="5" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;"></textarea>
+            </div>
+            <button type="submit" style="background-color: #28a745; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">Enviar</button>
+            </form>
+        </section>
+
+        </main>
+
+</body>
+</html>
