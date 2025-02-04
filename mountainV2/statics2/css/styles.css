@@ -6,15 +6,62 @@
     font-family: Arial, sans-serif;
 }
 
-#mountainImage {
-    border: 10px solid rgb(80, 196, 76);
-    max-width: 80%; 
-    height: auto;
+/* Estilos generales */
+body {
+    background-color: #f5f5f5;
+    color: #333;
 }
+
+/* Encabezado */
+#header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #7a9c42;
+    padding: 15px 20px;
+    color: white;
+    font-size: 18px;
+}
+
+/* Título de la página */
+.title {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* Botón menú */
+#menu-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: white;
+}
+
+/* Contenedor de búsqueda */
+#search-container {
+    display: flex;
+    align-items: center;
+}
+
+#search {
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+}
+
+#search-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    margin-left: 5px;
+}
+
 /* Menú lateral */
 #menu-lateral {
     position: fixed;
-    left: -250px; /* Inicialmente oculto */
+    left: -250px;
     top: 0;
     width: 250px;
     height: 100vh;
@@ -43,106 +90,76 @@
     font-size: 18px;
     display: block;
     padding: 8px;
-    transition: background 0.3s;
 }
 
 #menu-list a:hover {
     background: rgba(255, 255, 255, 0.2);
 }
 
-/* Botón para cerrar menú */
-#menu-close {
-    background: none;
-    border: none;
-    font-size: 24px;
-    color: white;
-    cursor: pointer;
-    display: block;
-    margin-left: auto;
-}
-
-/* Overlay para cerrar el menú */
-#overlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 900;
-}
-
-/* Mostrar el overlay cuando el menú está activo */
-#overlay.active {
-    display: block;
-}
-
-/* Header */
-#header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #7a9c42;
-    padding: 10px 20px;
-    color: white;
-}
-
-#menu-btn {
-    background: none;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-    color: white;
-}
-
-#search-container {
-    display: flex;
-    align-items: center;
-}
-
-#search {
-    padding: 5px;
-    border: none;
-    border-radius: 5px;
-}
-
-
-#search-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 18px;
-    margin-left: 5px;
-    border-color: black;
-    transition: color 0.3s, background-color 0.3s;
-}
-
-#search-btn:hover {
-    color: #6b7757;
-    background-color: rgba(255, 255, 255, 0.2);
-}
-
 /* Contenido principal */
 #main-content {
     text-align: center;
     margin-top: 20px;
+    padding: 20px;
 }
 
-#titulo {
+/* Estilos para la sección de información */
+.info-container {
+    background: white;
+    padding: 20px;
+    margin: 20px auto;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    max-width: 800px;
+}
+
+.mountain-title {
     font-size: 28px;
     color: #333;
 }
 
-#imagen-container {
+/* Imagen */
+.image-box {
     display: flex;
     justify-content: center;
     margin-top: 15px;
 }
 
-#montaña-imagen {
+#mountainImage {
+    border: 5px solid #5a7d38;
     max-width: 90%;
     height: auto;
-    border: 5px solid #5a7d38;
     border-radius: 10px;
+}
+
+/* Lista de detalles */
+.detalle-lista {
+    list-style: none;
+    text-align: left;
+    padding-left: 10px;
+    font-size: 18px;
+    line-height: 2;
+}
+
+/* Sección de comentarios */
+.comentarios-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+.comentarios-table th, .comentarios-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+.comentarios-table th {
+    background-color: #7a9c42;
+    color: white;
+}
+
+.comentarios-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
 }

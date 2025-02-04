@@ -2,6 +2,7 @@
 
 function loadMountain(texto) {
         var searchText = texto;
+        var globalId = searchText;
         var extraer = 'descripcion';
         console.log(searchText + " " + extraer);
         fetch('../configBD/mountain.php', {
@@ -41,9 +42,11 @@ function loadMountain(texto) {
         })
         .catch(error => console.error('Error:', error));
 
-
+        
         
 }
+
+
 
 
 

@@ -18,6 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 .then(data => {
                     mainContent.innerHTML = data; // Carga montañas.html dentro del main
                     loadMountain(searchText); // Llamar a la función para obtener datos de la montaña
+                    cargarComentarios(searchText); // Llamar a la función para obtener comentarios
                 })
                 .catch(error => {
                     console.error("Error cargando la página:", error);

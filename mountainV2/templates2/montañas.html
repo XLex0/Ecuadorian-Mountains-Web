@@ -3,43 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>montañas</title>
+    <title>Montañas</title>
+    <link rel="stylesheet" href="styles.css">
     <script defer src="../statics2/js/mountain.js"></script>
+    <script defer src="../statics2/js/comentarios.js"></script>
+    <link rel="stylesheet" href="../statics2/css/styles.css">
 </head>
 <body>
+
+    <!-- Encabezado -->
+    <header id="header">
+        <button id="menu-btn">☰</button>
+        <h1 class="title">Montañas del Mundo</h1>
+        <div id="search-container">
+            <input type="text" id="search" placeholder="Buscar...">
+            <button id="search-btn">🔍</button>
+        </div>
+    </header>
+
+    <!-- Menú Lateral -->
+    <nav id="menu-lateral">
+        <button id="menu-close">✖</button>
+        <ul id="menu-list">
+            <li><a href="#">Inicio</a></li>
+            <li><a href="#">Montañas</a></li>
+            <li><a href="#">Rutas</a></li>
+            <li><a href="#">Contacto</a></li>
+        </ul>
+    </nav>
+    <div id="overlay"></div>
+
     <!-- Contenido principal -->
     <main id="main-content">
-        <h1 id="mountainName"></h1>
-        <br>
 
-        <div id="imagenContainer">
-            <img id="mountainImage" src="" alt="Imagen de Montaña">
-        </div>
-        <br>
+        <section class="info-container">
+            <h1 id="mountainName" class="mountain-title"></h1>
 
-        <div>
-            <h2>Informacion Relevante</h2>
-            <p id="descripcion"></p>
-        </div>
+            <div id="imagenContainer" class="image-box">
+                <img id="mountainImage" src="" alt="Imagen de Montaña">
+            </div>
+        </section>
 
-        <br>
-        
-        <div>
+        <section class="info-container">
+            <h2>Información Relevante</h2>
+            <p id="descripcion" class="descripcion-texto"></p>
+        </section>
+
+        <section class="info-container">
             <h2>Detalles</h2>
-            <ul id="detalles">
-                <li>Longitud: <span id="longitud"></span></li>
-                <li>Latitud: <span id="latitud"></span></li>
-                <li>Ubicación: <span id="ubicacion"></span></li>
-                <li>Altura: <span id="altura"></span></li>
-                <li>Tipo: <span id="tipo"></span></li>
+            <ul id="detalles" class="detalle-lista">
+                <li>🌍 Longitud: <span id="longitud"></span></li>
+                <li>🌍 Latitud: <span id="latitud"></span></li>
+                <li>📍 Ubicación: <span id="ubicacion"></span></li>
+                <li>⛰️ Altura: <span id="altura"></span></li>
+                <li>🗻 Tipo: <span id="tipo"></span></li>
             </ul>
-        </div>
+        </section>
 
+        <!-- Sección de comentarios -->
+        <section class="info-container">
+            <h2>Comentarios</h2>
+            <table class="comentarios-table">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Comentario</th>
+                        <th>Calificación</th>
+                        <th>Fecha</th>
+                    </tr>
+                </thead>
+                <tbody id="comentarios">
+                </tbody>
+            </table>
+        </section>
 
-
-
-
-
-        </main>
+    </main>
 </body>
 </html>
