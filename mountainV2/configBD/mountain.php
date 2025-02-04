@@ -1,26 +1,36 @@
 <?php
-include 'configBD.php';
+require 'configBD.php';
 
+$extraer = $_POST['extraer'] ?? '';
+$id = $_POST['searchText'] ?? '';
 
-$extraer = $_POST['extraer'];
-$id = filter_var($_POST['searchText'], FILTER_SANITIZE_NUMBER_INT);
-
-if($extraer == 'descripcion'){
-    $sql = "SELECT nombre, longitud, latitud, ubicacion,altura, tipo, descripcion, urlImagenPrincipal FROM montanas WHERE id = $id";
-    
-
-}else if($extraer == 'mountain'){
-    $sql = "SELECT longitud, latitud, ubicacion,altura, tipo FROM montanas  WHERE id = $id";
+if (empty($id)) {
+    echo json_encode(["error" => "ID de montaña no proporcionado"]);
+    exit();
 }
 
-    $result = $conn->query($sql);    
-    $data = array();
-    if ($result->num_rows > 0) {
-        while($row = $result->fetch_assoc()) {
-            $data[] = $row;
-        }
-    }
-    
-    echo json_encode($data);
+$id = intval($id);
 
+$sql = "";
+if ($extraer == 'descripcion') {
+    $sql = "SELECT nombre, longitud, latitud, ubicacion, altura, tipo, descripcion, urlImagenPrincipal FROM montanas WHERE id = ?";
+} else if ($extraer == 'mountain') {
+    $sql = "SELECT longitud, latitud, ubicacion, altura, tipo FROM montanas WHERE id = ?";
+}
+
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $id);
+$stmt->execute();
+$result = $stmt->get_result();
+
+$data = [];
+while ($row = $result->fetch_assoc()) {
+    $data[] = $row;
+}
+
+if (empty($data)) {
+    echo json_encode(["error" => "No se encontraron datos para el ID: " . $id]);
+} else {
+    echo json_encode($data);
+}
 ?>

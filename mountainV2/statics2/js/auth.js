@@ -28,18 +28,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // LOGIN
     if (loginForm) {
-        loginForm.addEventListener("submit", (e) => {
+        loginForm.addEventListener("submit", async (e) => {
             e.preventDefault();
             const username = document.getElementById("username").value;
             const password = document.getElementById("password").value;
 
-            fetch("../configBD/api.php?endpoint=login", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ username, password }),
-            })
-            .then(res => res.json())
-            .then(data => {
+            try {
+                const response = await fetch("../configBD/api.php?endpoint=login", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ username, password }),
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Error ${response.status}: ${response.statusText}`);
+                }
+
+                const data = await response.json();
+
                 if (data.token) {
                     localStorage.setItem("authToken", data.token);
                     localStorage.setItem("username", username);
@@ -47,31 +53,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 } else {
                     alert("Credenciales incorrectas");
                 }
-            });
-        });
-    }
-
-    // REGISTRO
-    if (registerForm) {
-        registerForm.addEventListener("submit", (e) => {
-            e.preventDefault();
-            const username = document.getElementById("new-username").value;
-            const password = document.getElementById("new-password").value;
-
-            fetch("../configBD/api.php?endpoint=register", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ username, password }),
-            })
-            .then(res => res.json())
-            .then(data => {
-                if (data.success) {
-                    alert("Usuario registrado con éxito");
-                    window.location.href = "login.html";
-                } else {
-                    alert("Error al registrar");
-                }
-            });
+            } catch (error) {
+                console.error("Error en login:", error);
+                alert("Error al iniciar sesión. Intenta de nuevo.");
+            }
         });
     }
 
@@ -81,41 +66,6 @@ document.addEventListener("DOMContentLoaded", () => {
             localStorage.removeItem("authToken");
             localStorage.removeItem("username");
             window.location.href = "index.html";
-        });
-    }
-
-    // ELIMINAR USUARIO
-    if (deleteUserBtn) {
-        deleteUserBtn.addEventListener("click", () => {
-            const username = localStorage.getItem("username");
-            if (!username) {
-                alert("No hay un usuario autenticado.");
-                return;
-            }
-
-            if (!confirm("¿Estás seguro de que deseas eliminar tu cuenta? Esta acción es irreversible.")) {
-                return;
-            }
-
-            fetch("../configBD/api.php?endpoint=deleteUser", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${getAuthToken()}`
-                },
-                body: JSON.stringify({ username }),
-            })
-            .then(res => res.json())
-            .then(data => {
-                if (data.success) {
-                    alert("Usuario eliminado correctamente.");
-                    localStorage.removeItem("authToken");
-                    localStorage.removeItem("username");
-                    window.location.href = "index.html";
-                } else {
-                    alert("Error al eliminar usuario.");
-                }
-            });
         });
     }
 

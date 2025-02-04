@@ -87,7 +87,16 @@ CREATE TABLE IF NOT EXISTS guias_operadores (
     FOREIGN KEY (montana_id) REFERENCES montanas(id) ON DELETE CASCADE
 );
 
--- 9️ Crear la tabla de comentarios
+-- 9 Creación de la tabla de montañas
+CREATE TABLE IF NOT EXISTS montanas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    descripcion TEXT,
+    altura INT,
+    ubicacion VARCHAR(255)
+);
+
+-- 10 Creación de la tabla de comentarios
 CREATE TABLE IF NOT EXISTS comentarios (
     id INT AUTO_INCREMENT PRIMARY KEY,
     montana_id INT NOT NULL,
@@ -109,7 +118,7 @@ CREATE TABLE IF NOT EXISTS sesiones (
     FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE
 );
 
--- 🔹 Insertar datos en la tabla de montañas
+-- Insertar datos en la tabla de montañas
 INSERT INTO montanas (nombre, longitud, latitud, ubicacion, altura, tipo, descripcion, urlImagenPrincipal, mapsEmbeded)
 VALUES 
 ('Chimborazo', -78.816667, -1.466667, 'Cordillera Occidental, Ecuador', 6263, 'Volcán Inactivo', 
