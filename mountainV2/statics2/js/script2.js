@@ -26,6 +26,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
         }
     });
+
+
+
+    // Evento para manejar los clics en el menú y cargar el contenido
+    
+
     
 // Cargar la página de inicio de forma predeterminada
 loadPage('index.html'); // Esto carga "Inicio" cuando se carga la página
