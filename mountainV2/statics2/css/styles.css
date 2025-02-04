@@ -9,41 +9,68 @@
 /* Menú lateral */
 #menu-lateral {
     position: fixed;
-    left: 0;
+    left: -250px; /* Inicialmente oculto */
     top: 0;
+    width: 250px;
     height: 100vh;
-    width: 200px;
     background-color: #7a9c42;
-    padding: 10px;
-    transition: transform 0.3s ease-in-out;
-    transform: translateX(-100%);
+    padding: 20px;
+    transition: left 0.3s ease-in-out;
+    z-index: 1000;
 }
 
 #menu-lateral.active {
-    transform: translateX(0);
-}
-
-#menu-btn {
-    background: none;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-    color: white;
-    margin-bottom: 10px;
+    left: 0;
 }
 
 #menu-list {
     list-style: none;
+    margin-top: 20px;
 }
 
 #menu-list li {
-    margin: 10px 0;
+    margin: 15px 0;
 }
 
 #menu-list a {
     text-decoration: none;
     color: white;
     font-size: 18px;
+    display: block;
+    padding: 8px;
+    transition: background 0.3s;
+}
+
+#menu-list a:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Botón para cerrar menú */
+#menu-close {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+    display: block;
+    margin-left: auto;
+}
+
+/* Overlay para cerrar el menú */
+#overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 900;
+}
+
+/* Mostrar el overlay cuando el menú está activo */
+#overlay.active {
+    display: block;
 }
 
 /* Header */
@@ -53,6 +80,14 @@
     align-items: center;
     background-color: #7a9c42;
     padding: 10px 20px;
+    color: white;
+}
+
+#menu-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
     color: white;
 }
 
@@ -67,25 +102,20 @@
     border-radius: 5px;
 }
 
+
 #search-btn {
     background: none;
     border: none;
     cursor: pointer;
     font-size: 18px;
     margin-left: 5px;
+    border-color: black;
+    transition: color 0.3s, background-color 0.3s;
 }
 
-#account {
-    display: flex;
-    align-items: center;
-}
-
-#account-btn {
-    background: none;
-    border: none;
-    font-size: 20px;
-    cursor: pointer;
-    margin-left: 5px;
+#search-btn:hover {
+    color: #6b7757;
+    background-color: rgba(255, 255, 255, 0.2);
 }
 
 /* Contenido principal */

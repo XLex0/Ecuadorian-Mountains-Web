@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS rutas (
     nombre VARCHAR(255) NOT NULL,
     dificultad ENUM('Fácil', 'Intermedia', 'Difícil') NOT NULL,
     distancia DECIMAL(5,2) NOT NULL,
-    desnivel_acumulado DECIMAL(5,2),
+    desnivel_acumulado DECIMAL(10,2),
     punto_partida VARCHAR(255),
     punto_llegada VARCHAR(255),
     descripcion TEXT,
