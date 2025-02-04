@@ -6,6 +6,11 @@
     font-family: Arial, sans-serif;
 }
 
+#mountainImage {
+    border: 10px solid rgb(80, 196, 76);
+    max-width: 80%; 
+    height: auto;
+}
 /* Menú lateral */
 #menu-lateral {
     position: fixed;

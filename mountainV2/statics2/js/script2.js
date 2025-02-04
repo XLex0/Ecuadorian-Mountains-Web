@@ -1,6 +1,31 @@
 // script2.js
 
 document.addEventListener("DOMContentLoaded", function () {
+
+ // Evento del botón de búsqueda para cargar dinámicamente la información
+    document.getElementById('search').addEventListener('keyup', function(event) {
+        event.preventDefault(); // Evita que el formulario recargue la página
+        
+        var searchText = document.getElementById('search').value.trim();
+        if (searchText !== "") {
+            // Limpiar el contenido anterior y mostrar mensaje de carga
+            const mainContent = document.getElementById('main-content');
+            mainContent.innerHTML = "<p>Cargando...</p>";
+
+            // Cargar dinámicamente montañas.html dentro de main-content
+            fetch('montañas.html')
+                .then(response => response.text())
+                .then(data => {
+                    mainContent.innerHTML = data; // Carga montañas.html dentro del main
+                    loadMountain(searchText); // Llamar a la función para obtener datos de la montaña
+                })
+                .catch(error => {
+                    console.error("Error cargando la página:", error);
+                    mainContent.innerHTML = "<p>Error al cargar la información.</p>";
+                });
+        }
+    });
+    
 // Cargar la página de inicio de forma predeterminada
 loadPage('index.html'); // Esto carga "Inicio" cuando se carga la página
 

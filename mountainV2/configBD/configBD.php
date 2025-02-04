@@ -1,8 +1,11 @@
 <?php
 $servername = "localhost"; // Si es en Clever Cloud, usa el host remoto
 $username = "root"; // O el usuario configurado en phpMyAdmin
-$password = ""; // Si tienes contraseña en XAMPP, agrégala aquí
+//$password = ""; // Si tienes contraseña en XAMPP, agrégala aquí
 $dbname = "inti_cumbres"; // Debe coincidir con el nombre en phpMyAdmin
+
+//Comentar esto es solo para mi 
+$password = "admin2024"; 
 
 // Crear conexión
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -11,6 +14,6 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Conexión fallida: " . $conn->connect_error);
 } else {
-    echo "Conexión exitosa";
+    //echo "Conexión exitosa";
 }
 ?>
