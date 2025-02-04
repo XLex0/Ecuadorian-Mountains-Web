@@ -4,26 +4,25 @@ document.addEventListener("DOMContentLoaded", function () {
 
  // Evento del botón de búsqueda para cargar dinámicamente la información
     document.getElementById('search').addEventListener('keyup', function(event) {
-        event.preventDefault();
-
+        event.preventDefault(); // Evita que el formulario recargue la página
+        
         var searchText = document.getElementById('search').value.trim();
         if (searchText !== "") {
+            // Limpiar el contenido anterior y mostrar mensaje de carga
             const mainContent = document.getElementById('main-content');
             mainContent.innerHTML = "<p>Cargando...</p>";
 
+            // Cargar dinámicamente montañas.html dentro de main-content
             fetch('montañas.html')
-                .then(response => {
-                    if (!response.ok) throw new Error("Error cargando montañas.html");
-                    return response.text();
-                })
+                .then(response => response.text())
                 .then(data => {
-                    mainContent.innerHTML = data;
-                    loadMountain(searchText);
-                    cargarComentarios(searchText);
+                    mainContent.innerHTML = data; // Carga montañas.html dentro del main
+                    loadMountain(searchText); // Llamar a la función para obtener datos de la montaña
+                    cargarComentarios(searchText); // Llamar a la función para obtener comentarios
                 })
                 .catch(error => {
-                    console.error("Error en script2.js:", error);
-                    mainContent.innerHTML = "<p style='color:red;'>Error al cargar la información.</p>";
+                    console.error("Error cargando la página:", error);
+                    mainContent.innerHTML = "<p>Error al cargar la información.</p>";
                 });
         }
     });

@@ -4,7 +4,7 @@ require 'auth.php'; // Archivo para manejar autenticación
 
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: GET, POST, DELETE, OPTIONS');
+header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type, Authorization');
 
 // Manejar solicitudes OPTIONS (CORS)
@@ -13,83 +13,65 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit();
 }
 
-// Obtener el endpoint y datos
+// Obtener el endpoint
 $endpoint = $_GET['endpoint'] ?? '';
-$data = json_decode(file_get_contents('php://input'), true);
 
-// **Manejador de solicitudes**
-try {
-    if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-        if ($endpoint === 'montanas') {
+// Manejador de peticiones GET
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    switch ($endpoint) {
+        case 'montanas':
             obtenerMontanas($conn);
-        } elseif ($endpoint === 'comentarios' && isset($_GET['montana_id'])) {
-            obtenerComentarios($conn, $_GET['montana_id']);
-        } else {
-            errorRespuesta("Endpoint desconocido o falta parámetro", 404);
-        }
-        switch ($endpoint) {
-            case 'montanas':
-                obtenerMontanas($conn);
-                break;
-            case 'montana':
-                isset($_GET['id']) ? obtenerMontana($conn, $_GET['id']) : errorRespuesta("ID de montaña requerido");
-                break;
-            case 'rutas':
-                isset($_GET['id']) ? obtenerRutas($conn, $_GET['id']) : errorRespuesta("ID de montaña requerido");
-                break;
-            case 'equipo':
-                isset($_GET['id']) ? obtenerEquipo($conn, $_GET['id']) : errorRespuesta("ID de montaña requerido");
-                break;
-            case 'temporadas':
-                isset($_GET['id']) ? obtenerTemporadas($conn, $_GET['id']) : errorRespuesta("ID de montaña requerido");
-                break;
-            case 'refugios':
-                isset($_GET['id']) ? obtenerRefugios($conn, $_GET['id']) : errorRespuesta("ID de montaña requerido");
-                break;
-            case 'comentarios':
-                isset($_GET['montana_id']) ? obtenerComentarios($conn, $_GET['montana_id']) : errorRespuesta("ID de montaña requerido");
-                break;
-            case 'calificacion_promedio':
-                isset($_GET['montana_id']) ? obtenerCalificacionPromedio($conn, $_GET['montana_id']) : errorRespuesta("ID de montaña requerido");
-                break;
-            default:
-                errorRespuesta("Endpoint desconocido", 404);
-        }
-    } elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        switch ($endpoint) {
-            case 'login':
-                login($conn, $data);
-                break;
-            case 'register':
-                register($conn, $data);
-                break;
-            case 'comentar':
-                $headers = getallheaders();
-                $token = $headers['Authorization'] ?? '';
-                $usuario_id = verificarAutenticacion($conn, $token);
-                if ($usuario_id) {
-                    agregarComentario($conn, $usuario_id, $data);
-                } else {
-                    errorRespuesta("Usuario no autenticado", 401);
-                }
-                break;
-            default:
-                errorRespuesta("Método no permitido en este endpoint", 405);
-        }
-    } elseif ($_SERVER['REQUEST_METHOD'] === 'DELETE' && $endpoint === 'delete_user') {
-        $headers = getallheaders();
-        $token = $headers['Authorization'] ?? '';
-        deleteUser($conn, $token);
-    } else {
-        errorRespuesta("Método HTTP no válido", 405);
+            break;
+        case 'montana':
+            isset($_GET['id']) ? obtenerMontana($conn, $_GET['id']) : errorRespuesta("ID de montaña requerido");
+            break;
+        case 'rutas':
+            isset($_GET['id']) ? obtenerRutas($conn, $_GET['id']) : errorRespuesta("ID de montaña requerido");
+            break;
+        case 'equipo':
+            isset($_GET['id']) ? obtenerEquipo($conn, $_GET['id']) : errorRespuesta("ID de montaña requerido");
+            break;
+        case 'temporadas':
+            isset($_GET['id']) ? obtenerTemporadas($conn, $_GET['id']) : errorRespuesta("ID de montaña requerido");
+            break;
+        case 'refugios':
+            isset($_GET['id']) ? obtenerRefugios($conn, $_GET['id']) : errorRespuesta("ID de montaña requerido");
+            break;
+        case 'comentarios':
+            isset($_GET['montana_id']) ? obtenerComentarios($conn, $_GET['montana_id']) : errorRespuesta("ID de montaña requerido");
+            break;
+        case 'calificacion_promedio':
+            isset($_GET['montana_id']) ? obtenerCalificacionPromedio($conn, $_GET['montana_id']) : errorRespuesta("ID de montaña requerido");
+            break;
+        default:
+            errorRespuesta("Endpoint desconocido", 404);
     }
-} catch (Exception $e) {
-    errorRespuesta("Error interno del servidor: " . $e->getMessage(), 500);
 }
 
-// **Funciones para obtener datos**
+// Manejador de peticiones POST
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $data = json_decode(file_get_contents('php://input'), true);
+    
+    switch ($endpoint) {
+        case 'login':
+            login($conn, $data);
+            break;
+        case 'register':
+            register($conn, $data);
+            break;
+        case 'comentar':
+            verificarAutenticacion() ? agregarComentario($conn, $data) : errorRespuesta("Usuario no autenticado", 401);
+            break;
+        default:
+            errorRespuesta("Método no permitido en este endpoint", 405);
+    }
+}
+
+// Funciones para obtener datos
 function obtenerMontanas($conn) {
-    ejecutarConsulta($conn, "SELECT * FROM montanas");
+    $sql = "SELECT * FROM montanas";
+    $result = $conn->query($sql);
+    enviarRespuesta($result);
 }
 
 function obtenerMontana($conn, $id) {
@@ -113,30 +95,23 @@ function obtenerRefugios($conn, $id) {
 }
 
 function obtenerComentarios($conn, $montana_id) {
-    ejecutarConsulta($conn, "SELECT c.comentario, u.username AS nombreUsuario, c.calificacion, c.fecha_comentario 
-        FROM comentarios c 
-        JOIN usuarios u ON c.usuario_id = u.id 
-        WHERE c.montana_id = ?", "i", [$montana_id]);
+    ejecutarConsulta($conn, "SELECT * FROM comentarios WHERE montana_id = ?", "i", [$montana_id]);
 }
 
-function obtenerCalificacionPromedio($conn, $montana_id) {
-    ejecutarConsulta($conn, "SELECT AVG(calificacion) AS promedio FROM comentarios WHERE montana_id = ?", "i", [$montana_id]);
-}
-
-// **Funciones para manejar comentarios**
-function agregarComentario($conn, $usuario_id, $data) {
+function agregarComentario($conn, $data) {
     $montana_id = $data['montana_id'] ?? 0;
+    $usuario_id = $_SESSION['user_id'] ?? 0;
     $comentario = $data['comentario'] ?? '';
     $calificacion = $data['calificacion'] ?? 0;
 
-    if ($montana_id == 0 || empty($comentario)) {
-        errorRespuesta("Datos incompletos", 400);
+    if ($usuario_id == 0) {
+        errorRespuesta("Usuario no autenticado", 401);
     }
 
     $sql = "INSERT INTO comentarios (montana_id, usuario_id, comentario, calificacion) VALUES (?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("iisi", $montana_id, $usuario_id, $comentario, $calificacion);
-
+    
     if ($stmt->execute()) {
         echo json_encode(["success" => true]);
     } else {
@@ -144,12 +119,14 @@ function agregarComentario($conn, $usuario_id, $data) {
     }
 }
 
+function obtenerCalificacionPromedio($conn, $montana_id) {
+    ejecutarConsulta($conn, "SELECT AVG(calificacion) as promedio FROM comentarios WHERE montana_id = ?", "i", [$montana_id]);
+}
+
 // **Funciones auxiliares para simplificar el código**
-function ejecutarConsulta($conn, $sql, $types = "", $params = []) {
+function ejecutarConsulta($conn, $sql, $types, $params) {
     $stmt = $conn->prepare($sql);
-    if (!empty($types) && !empty($params)) {
-        $stmt->bind_param($types, ...$params);
-    }
+    $stmt->bind_param($types, ...$params);
     $stmt->execute();
     $result = $stmt->get_result();
     enviarRespuesta($result);

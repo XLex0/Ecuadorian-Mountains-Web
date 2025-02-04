@@ -27,26 +27,19 @@
 
     <!-- Capa oscura para cerrar el menú -->
     <div id="overlay"></div>
-    <div id="user-actions">
-        <button id="login-btn" onclick="window.location.href='login.html'">Login</button>
-        <button id="logout-btn" style="display: none;">Logout</button>
-        <button id="delete-user-btn" style="display: none; background-color: red; color: white;">Eliminar cuenta</button>
-    </div>
-    <script defer src="../statics2/js/auth.js"></script>
-    
+
     <!-- Encabezado -->
     <header id="header">
         <button id="menu-btn">☰</button>
         <div id="logo">Inti Cumbres</div>
         <div id="search-container">
-            <input type="text" id="search" placeholder="Buscar...">
+            <form>
+                <input type="text" id="search" placeholder="Buscar...">    
+            </form>
+ 
         </div>
-        <div id="user-actions">
-            <button id="login-btn">Login</button>
-            <button id="logout-btn" style="display: none;">Logout</button>
-        </div>
+        <div id="account">Mi cuenta</div>
     </header>
-    <script defer src="../statics2/js/auth.js"></script>
 
     <main id="main-content"></main>
 </body>
