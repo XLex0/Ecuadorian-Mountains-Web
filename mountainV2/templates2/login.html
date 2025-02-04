@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="../statics2/css/styles.css">
+</head>
+<body>
+    <div class="form-container">
+        <h2>Iniciar Sesión</h2>
+        <form id="login-form">
+            <input type="text" id="username" placeholder="Usuario" required>
+            <input type="password" id="password" placeholder="Contraseña" required>
+            <button type="submit">Ingresar</button>
+        </form>
+        <p>¿No tienes cuenta? <a href="#" id="register-link">Regístrate</a></p>
+
+        <div id="register-container" style="display: none;">
+            <h2>Registro</h2>
+            <form id="register-form">
+                <input type="text" id="new-username" placeholder="Nuevo Usuario" required>
+                <input type="password" id="new-password" placeholder="Nueva Contraseña" required>
+                <button type="submit">Registrarse</button>
+            </form>
+        </div>
+    </div>
+    <script defer src="../statics2/js/auth.js"></script>
+</body>
+</html>

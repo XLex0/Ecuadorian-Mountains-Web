@@ -3,7 +3,7 @@ include 'configBD.php';
 
 
 $extraer = $_POST['extraer'];
-$id = $_POST['searchText'];
+$id = filter_var($_POST['searchText'], FILTER_SANITIZE_NUMBER_INT);
 
 if($extraer == 'descripcion'){
     $sql = "SELECT nombre, longitud, latitud, ubicacion,altura, tipo, descripcion, urlImagenPrincipal FROM montanas WHERE id = $id";
@@ -22,7 +22,5 @@ if($extraer == 'descripcion'){
     }
     
     echo json_encode($data);
-
-
 
 ?>
