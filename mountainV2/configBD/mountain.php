@@ -11,6 +11,8 @@ if($extraer == 'descripcion'){
 
 }else if($extraer == 'mountain'){
     $sql = "SELECT longitud, latitud, ubicacion,altura, tipo FROM montanas  WHERE id = $id";
+}else if($extraer == 'all'){
+    $sql = "SELECT id, nombre, longitud, latitud, ubicacion,altura, tipo, urlImagenPrincipal FROM montanas";
 }
 
     $result = $conn->query($sql);    
