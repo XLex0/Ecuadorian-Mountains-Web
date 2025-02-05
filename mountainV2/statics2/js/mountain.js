@@ -13,6 +13,7 @@
          })
          .then(response => response.json())
          .then(data => {
+            console.log(data);
              // Limpiar el contenido previo (usando JavaScript vanilla)
          const descripcionElement = document.getElementById('descripcion');
          descripcionElement.innerHTML = ''; 
@@ -30,6 +31,8 @@
              document.getElementById('mountainImage').src = item.urlImagenPrincipal;
              // Cargar el nombre
              document.getElementById('mountainName').textContent = item.nombre;
+
+             document.getElementById("map").innerHTML= item.mapsEmbeded;
           
              });
          })

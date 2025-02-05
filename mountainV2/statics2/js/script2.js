@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     // Evento para cargar la página de Menu de montañas
-    document.querySelector('li a[href="montañas.html"]').parentElement.addEventListener('click', function(event) {
+    document.querySelector('li a[href="MountainsMenu.html"]').parentElement.addEventListener('click', function(event) {
         event.preventDefault(); // Evita que el enlace realice su acción por defecto
         console.log("si entro");
 
@@ -87,7 +87,10 @@ loadPage('inicio.html'); // Esto carga "Inicio" cuando se carga la página
 
             // Cargar la página dinámica (AJAX)
             loadPage(page);
+            document.getElementById('menu-lateral').style.left = '-250px';
+            document.getElementById('overlay').style.display = 'none';
         });
+      
     });
 
     function loadPage(page) {

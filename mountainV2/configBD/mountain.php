@@ -6,7 +6,7 @@ $extraer = $_POST['extraer'];
 $id = $_POST['searchText'];
 
 if($extraer == 'descripcion'){
-    $sql = "SELECT nombre, longitud, latitud, ubicacion,altura, tipo, descripcion, urlImagenPrincipal FROM montanas WHERE id = $id";
+    $sql = "SELECT nombre, longitud, latitud, ubicacion,altura, tipo, descripcion, urlImagenPrincipal, mapsEmbeded FROM montanas WHERE id = $id";
     
 
 }else if($extraer == 'mountain'){

@@ -26,12 +26,22 @@ session_start();
         <button id="menu-close">✖</button>
         <ul id="menu-list">
             <li><a href="inicio.html">Inicio</a></li>
-            <li><a href="montañas.html">Montañas</a></li>
+            <li><a href="MountainsMenu.html">Montañas</a></li>
             <li><a href="rutas.html">Rutas</a></li>
             <li><a href="guias.html">Guías</a></li>
             <li><a href="equipo.html">Equipo</a></li>
             <li><a href="temporadas.html">Temporadas</a></li>
             <li><a href="refugios.html">Refugios</a></li>
+
+            <?php 
+        // Para probar sin necesidad de loguearse, descomenta la línea a continuación
+        // if (isset($_SESSION['username']) && $_SESSION['username'] == 'admin') { 
+        ?>
+            <!-- Para pruebas sin sesión, simplemente muestra el enlace de "Administrar" -->
+            <li class= menu-admin><a href="administrar.html">Administrar</a></li>
+        <?php 
+        // }
+        ?>
         </ul>
     </div>
 
