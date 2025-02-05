@@ -163,3 +163,81 @@ body {
 .comentarios-table tbody tr:nth-child(even) {
     background-color: #f9f9f9;
 }
+
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #7a9c42, #4a6c2c);
+}
+
+.auth-box {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
+}
+
+.auth-box h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.auth-box input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.auth-box button {
+    width: 100%;
+    padding: 10px;
+    background: #7a9c42;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.auth-box button:hover {
+    background: #5a7d38;
+}
+
+.auth-box p {
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+.auth-box a {
+    color: #7a9c42;
+    text-decoration: none;
+    font-weight: bold;
+}
+.error-message {
+    background-color: #ff4444;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    text-align: center;
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
