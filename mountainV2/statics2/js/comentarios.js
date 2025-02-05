@@ -49,34 +49,34 @@ document.addEventListener("DOMContentLoaded", function() {
     if (formLogin) {
         formLogin.addEventListener('submit', function(event) {
             event.preventDefault(); // Evita la recarga
+
             verificarUsuario();
         });
     }
 });
 
 function verificarUsuario() {
-    var username = document.getElementById('username');
-    var password = document.getElementById('password');
+    var username = document.getElementById('username').value;
+    var password = document.getElementById('password').value;
 
-    fetch('../configBD/login.php', {
-        method: 'POST',
-        
-        body: 'username=' + encodeURIComponent(username.value) + '&password=' + encodeURIComponent(password.value)
-    })
-    .then(response => response.json())  // Convertir la respuesta a JSON
-    .then(isPasswordCorrect => {  
-        console.log('Respuesta del servidor:', isPasswordCorrect);
+fetch('../configBD/login.php', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: 'username=' + encodeURIComponent(username) + '&password=' + encodeURIComponent(password)
+})
+.then(response => response.text()) // Obtener como texto primero
+.then(text => {
+    console.log("Respuesta del servidor:", text); // Depurar respuesta
+    return JSON.parse(text); // Intentar convertir a JSON
+})
+.then(data => {
+    console.log(data);
+    if (data.status === 'ok') {
+        window.location.href = 'index.php';
+    } else {
+        alert('Usuario o contraseña incorrectos');
+    }
+})
+.catch(error => console.error('Error en la solicitud:', error));
 
-        if (isPasswordCorrect) {
-            console.log('Login exitoso');
-            alert('Inicio de sesión exitoso');
-            // Guardar usuario en localStorage o redirigir a otra página
-            localStorage.setItem("user", username.value);
-            window.location.href = "index.html"; // Redirige al inicio
-        } else {
-            console.error('Login fallido');
-            alert('Usuario o contraseña incorrectos');
-        }
-    })
-    .catch(error => console.error('Error en la solicitud:', error));
 }

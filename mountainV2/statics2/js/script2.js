@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     
 // Cargar la página de inicio de forma predeterminada
-loadPage('index.html'); // Esto carga "Inicio" cuando se carga la página
+loadPage('inicio.html'); // Esto carga "Inicio" cuando se carga la página
 
 
     // Evento para abrir el menú

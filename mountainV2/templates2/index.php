@@ -1,3 +1,13 @@
+<?php
+session_start();
+
+// Verificar si el usuario está logueado
+if (!isset($_SESSION['usuario'])) {
+    header("Location: login.html");  // Redirigir al login si no está logueado
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,7 +25,7 @@
     <div id="menu-lateral">
         <button id="menu-close">✖</button>
         <ul id="menu-list">
-            <li><a href="index.html">Inicio</a></li>
+            <li><a href="inicio.html">Inicio</a></li>
             <li><a href="montañas.html">Montañas</a></li>
             <li><a href="rutas.html">Rutas</a></li>
             <li><a href="guias.html">Guías</a></li>
