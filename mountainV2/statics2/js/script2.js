@@ -16,6 +16,8 @@ document.addEventListener("DOMContentLoaded", function () {
             fetch('montañas.html')
                 .then(response => response.text())
                 .then(data => {
+
+                    console.log(data);
                     mainContent.innerHTML = data; // Carga montañas.html dentro del main
                     loadMountain(searchText); // Llamar a la función para obtener datos de la montaña
                     cargarComentarios(searchText); // Llamar a la función para obtener comentarios
@@ -29,7 +31,30 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-    // Evento para manejar los clics en el menú y cargar el contenido
+
+    // Evento para cargar la página de Menu de montañas
+    document.querySelector('li a[href="montañas.html"]').parentElement.addEventListener('click', function(event) {
+        event.preventDefault(); // Evita que el enlace realice su acción por defecto
+        console.log("si entro");
+
+        const mainContent = document.getElementById('main-content');
+        mainContent.innerHTML = "<p>Cargando...</p>";
+        //htl para menu
+        fetch('MountainsMenu.html')
+        .then(response => response.text())
+        .then(data => {
+
+            mainContent.innerHTML = data; 
+            loadMountainsMenu();
+        })
+        .catch(error => {
+            console.error("Error cargando la página:", error);
+            mainContent.innerHTML = "<p>Error al cargar la información.</p>";
+        });
+ // Ejecuta la función para cargar montañas
+    });
+
+ 
     
 
     

@@ -1,0 +1,63 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Montañas</title>
+    <script defer src="../statics2/js/script2.js"></script>
+    <script defer src="../statics2/js/mountain.js"></script>
+    <script defer src="../statics2/js/comentarios.js"></script>
+    <link rel="stylesheet" href="../statics2/css/styles.css">
+    <style>
+        .mountain-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            border: 1px solid #ddd;
+            padding: 15px 30px; /* Aumenté el padding en los lados izquierdo y derecho */
+            border-radius: 8px;
+            background-color: #f9f9f9;
+            width: 100%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombreado leve */
+            transition: all 0.3s ease; /* Suaviza el cambio al pasar el hover */
+        }
+    
+        .mountain-card:hover {
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Aumenta el sombreado al pasar el hover */
+            transform: translateY(-5px); /* Sube ligeramente la tarjeta */
+        }
+    
+        .mountain-info {
+            flex: 1;
+            text-align: left;
+        }
+    
+        .mountain-image-container {
+            flex: 0 0 200px; /* Ajusta este valor según el tamaño de imagen que quieras */
+            display: flex;
+            justify-content: flex-end;
+        }
+    
+        .mountain-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+    </style>
+    
+    
+</head>
+<body>
+
+
+    <!-- Contenido principal -->
+    <main id="main-content">
+     
+
+        <div id="mountainContainer"></div>
+
+
+
+    </main>
+</body>
+</html>
