@@ -59,11 +59,18 @@ session_start();
 
     <!-- Encabezado -->
     <header id="header">
-        <button id="menu-btn">☰</button>
-        <div id="logo">Inti Cumbres</div>
-        <div id="search-container">
-            <input type="text" id="search" placeholder="Buscar...">
-            <a href="../configBD/logout.php" class="logout-btn">Cerrar sesión</a>
+        <div class="flex items-center">
+            <button id="menu-btn" class="menu-btn">☰</button>
+            <div id="logo">Inti Cumbres</div>
+        </div>
+        <div class="header-controls">
+            <div class="search-wrapper">
+                <input type="text" id="search" placeholder="Buscar...">
+            </div>
+            <a href="../configBD/logout.php" class="logout-button">
+                <span class="button-icon">➜</span>
+                Cerrar sesión
+            </a>
         </div>
     </header>
 

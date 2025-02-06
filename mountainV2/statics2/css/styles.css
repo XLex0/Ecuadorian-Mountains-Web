@@ -1,24 +1,27 @@
 /* Estilos generales */
 :root {
-    --primary-color: #059669;
-    --primary-dark: #047857;
-    --primary-light: #34d399;
-    --background: #f0fdf4;
-    --text: #064e3b;
+    --primary-color: #2F855A;
+    --secondary-color: #276749;
+    --accent-color: #9AE6B4;
+    --background-light: #F0FFF4;
+    --text-dark: #1A202C;
   }
   
-  * {
+  
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Inter', Arial, sans-serif;
-  }
+}
   
-  body {
-    background-color: var(--background);
-    color: var(--text);
-  }
-
+body {
+    background: linear-gradient(to bottom, var(--background-light), #ffffff);
+    font-family: 'Inter', system-ui, sans-serif;
+    color: var(--text-dark);
+    line-height: 1.6;
+}
+  
 /* Encabezado */
 #header {
     display: flex;
@@ -29,6 +32,13 @@
     color: white;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
+
+.header-controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
 
 /* Título de la página */
 .title {
@@ -95,11 +105,29 @@
     align-items: center;
 }
 
-#search {
-    padding: 5px;
-    border: none;
-    border-radius: 5px;
+.search-wrapper {
+    position: relative;
+    margin-right: 1rem;
 }
+
+#search {
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    border: none;
+    background: rgba(255,255,255,0.1);
+    color: white;
+    transition: all 0.3s ease;
+}
+#search::placeholder {
+    color: rgba(255,255,255,0.7);
+}
+
+#search:focus {
+    background: rgba(255,255,255,0.2);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(255,255,255,0.3);
+}
+
 
 #search-btn {
     background: none;
@@ -107,6 +135,28 @@
     cursor: pointer;
     font-size: 18px;
     margin-left: 5px;
+}
+
+.logout-button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background-color: rgba(255,255,255,0.1);
+    color: white;
+    text-decoration: none;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+}
+
+.logout-button:hover {
+    background-color: rgba(255,255,255,0.2);
+    transform: translateY(-1px);
+}
+
+.button-icon {
+    font-size: 1.2em;
+    transform: rotate(-90deg);
 }
 
 /* Menú lateral */
@@ -365,6 +415,22 @@
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
+
+/* Animaciones generales */
+@keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .page-animation {
+    animation: fadeInUp 0.6s ease-out;
+  }
 
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(20px); }

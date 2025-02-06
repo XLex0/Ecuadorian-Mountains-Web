@@ -108,6 +108,19 @@ CREATE TABLE IF NOT EXISTS sesiones (
     fecha_expiracion TIMESTAMP NULL DEFAULT NULL,
     FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE
 );
+--  Crear comentarios sin logeo [anonimos]
+CREATE TABLE comentarios_anonimos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    comentario_id INT NOT NULL,
+    montana_id INT NOT NULL,
+    ip_address VARCHAR(45) NOT NULL,
+    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (comentario_id) REFERENCES comentarios(id) ON DELETE CASCADE,
+    FOREIGN KEY (montana_id) REFERENCES montanas(id) ON DELETE CASCADE,
+    UNIQUE KEY unique_ip_montana (ip_address, montana_id)
+);
+
+ALTER TABLE comentarios ADD COLUMN es_anonimo BOOLEAN DEFAULT FALSE;
 
 -- 🔹 Insertar datos en la tabla de montañas
 INSERT INTO montanas (nombre, longitud, latitud, ubicacion, altura, tipo, descripcion, urlImagenPrincipal, mapsEmbeded)

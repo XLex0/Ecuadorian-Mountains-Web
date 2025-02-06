@@ -1,49 +1,51 @@
 <?php
 include 'configBD.php';
 
-// Verificar si los datos POST están presentes
-if (isset($_POST['searchText'])) {
-    // Evitar inyección SQL
-    $id = $conn->real_escape_string($_POST['searchText']);
+header('Content-Type: application/json');
 
-    // Primera consulta: buscar comentarios por ID de montaña
-    $sql = "SELECT c.comentario as comentario, u.username as nombreUsuario,
-            c.calificacion as calificacion, c.fecha_comentario as fecha
+if (isset($_POST['searchText'])) {
+    $id = $conn->real_escape_string($_POST['searchText']);
+    $is_anonymous = !isset($_SESSION['user_id']);
+    
+    // Para usuarios anónimos, verificar si ya han comentado usando la IP
+    if ($is_anonymous) {
+        $ip_address = $_SERVER['REMOTE_ADDR'];
+        $check_ip = "SELECT COUNT(*) as count FROM comentarios_anonimos WHERE ip_address = ? AND montana_id = ?";
+        $stmt = $conn->prepare($check_ip);
+        $stmt->bind_param("si", $ip_address, $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $count = $result->fetch_assoc()['count'];
+        
+        if ($count > 0) {
+            echo json_encode(['error' => 'Ya has dejado un comentario anónimo para esta montaña']);
+            exit;
+        }
+    }
+
+    // Obtener comentarios existentes
+    $sql = "SELECT c.comentario, 
+            COALESCE(u.username, 'Anónimo') as nombreUsuario,
+            c.calificacion, 
+            c.fecha_comentario as fecha
             FROM montanas m
             LEFT JOIN comentarios c ON m.id = c.montana_id
             LEFT JOIN usuarios u ON c.usuario_id = u.id
-            WHERE m.id = '$id'"; 
+            WHERE m.id = ?";
 
-    $result = $conn->query($sql);
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $result = $stmt->get_result();
     $data = array();
 
-    if ($result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
-            $data[] = $row;
-        }
-    } else {
-        // Segunda consulta: buscar comentarios por nombre de montaña
-        $sql = "SELECT c.comentario as comentario, u.username as nombreUsuario,
-                c.calificacion as calificacion, c.fecha_comentario as fecha
-                FROM montanas m
-                LEFT JOIN comentarios c ON m.id = c.montana_id
-                LEFT JOIN usuarios u ON c.usuario_id = u.id
-                WHERE m.nombre LIKE '$id%'"; 
-
-        $result = $conn->query($sql);
-
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                $data[] = $row;
-            }
-        } else {
-            $data[] = array("error" => "No se encontraron resultados");
-        }
+    while ($row = $result->fetch_assoc()) {
+        $data[] = $row;
     }
 
     echo json_encode($data);
 } else {
-    echo json_encode(array("error" => "Datos POST no recibidos"));
+    echo json_encode(['error' => 'Datos POST no recibidos']);
 }
 
 $conn->close();

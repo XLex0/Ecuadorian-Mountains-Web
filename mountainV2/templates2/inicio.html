@@ -8,29 +8,113 @@
     <script defer src="../statics2/js/script2.js"></script>
 </head>
 <body>
-
-
     <!-- Contenido principal -->
-    <main id="main-content">
-        <h1 id="titulo">Montañas Ecuador</h1>
-        <br>
-        <div id="imagen-container" style="max-width: 600px; margin: auto; position: relative;">
-            <div style="background-color: rgb(106, 221, 106); position: absolute; top: -10px; left: -10px; right: -10px; bottom: -10px; z-index: -1;"></div>
-            <img src="../statics2/img/chimborazo.jpg" alt="Imagen de Montaña" style="width: 100%; position: relative;">
+    <main id="main-content" class="page-animation">
+        <div class="hero-section">
+            <div class="hero-content">
+                <h1 class="hero-title">Montañas Ecuador</h1>
+                <p class="hero-subtitle">Descubre la magia de las alturas</p>
+            </div>
+            <div class="mountain-parallax">
+                <div class="parallax-layer mountain-back"></div>
+                <div class="parallax-layer mountain-mid"></div>
+                <div class="parallax-layer mountain-front"></div>
+            </div>
         </div>
-        <br>
-        <div style="text-align: center; padding: 20px; background-color: #f9f9f9; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-            <h2 style="color: #2c3e50;">Sobre Nosotros</h2>
-            <p style="color: #34495e; font-size: 1.1em; line-height: 1.6;">
-            Inti Cumbres es una empresa dedicada a ofrecer experiencias únicas de montañismo
+    
+        <section class="features-section">
+            <div class="feature-card">
+                <div class="feature-icon">🏔️</div>
+                <h3>Explora</h3>
+                <p>Descubre las montañas más impresionantes de Ecuador</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">👥</div>
+                <h3>Guías Expertos</h3>
+                <p>Acompañamiento profesional en cada aventura</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🌟</div>
+                <h3>Experiencias Únicas</h3>
+                <p>Vive momentos inolvidables en las alturas</p>
+            </div>
+        </section>
+    
+        <section class="about-section">
+            <h2>Sobre Nosotros</h2>
+            <p>Inti Cumbres es una empresa dedicada a ofrecer experiencias únicas de montañismo
             en Ecuador. Nuestro equipo de guías expertos te llevará a explorar las cumbres más 
-            impresionantes del país, asegurando una aventura segura y emocionante.
-            </p>
-        </div>
-
-        
-
-        </main>
-
+            impresionantes del país, asegurando una aventura segura y emocionante.</p>
+        </section>
+    </main>
+    
+    <style>
+    .hero-section {
+        position: relative;
+        height: 80vh;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), 
+                    url('../statics2/img/chimborazo.jpg') center/cover;
+    }
+    
+    .hero-content {
+        text-align: center;
+        color: white;
+        z-index: 2;
+        padding: 2rem;
+    }
+    
+    .hero-title {
+        font-size: 4rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    }
+    
+    .hero-subtitle {
+        font-size: 1.5rem;
+        opacity: 0.9;
+    }
+    
+    .features-section {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        padding: 4rem 2rem;
+        background: white;
+    }
+    
+    .feature-card {
+        text-align: center;
+        padding: 2rem;
+        border-radius: 1rem;
+        background: var(--background-light);
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease;
+    }
+    
+    .feature-card:hover {
+        transform: translateY(-10px);
+    }
+    
+    .feature-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+    }
+    
+    .about-section {
+        background: white;
+        padding: 4rem 2rem;
+        text-align: center;
+    }
+    
+    .about-section h2 {
+        color: var(--primary-color);
+        margin-bottom: 2rem;
+    }
+    </style>
 </body>
 </html>
