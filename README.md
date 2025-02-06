@@ -1,9 +1,5 @@
----
-
-# 🏔️ **Inti Cumbres**: Explorador de Montañas Ecuatorianas 🇪🇨
-**Plataforma web integral desarrollada en la Escuela Politécnica Nacional (6to Semestre) para descubrir y explorar las majestuosas montañas del Ecuador.**
-
----
+# 🏔️ Inti Cumbres: Explorador de Montañas Ecuatorianas 🇪🇨
+Plataforma web integral desarrollada en la Escuela Politécnica Nacional (6to Semestre) para descubrir y explorar las majestuosas montañas del Ecuador.
 
 ## ✨ **Índice**
 
