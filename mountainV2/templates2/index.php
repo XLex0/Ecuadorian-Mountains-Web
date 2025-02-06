@@ -10,6 +10,7 @@ session_start();
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,13 +21,21 @@ session_start();
     <script defer src="../statics2/js/comentarios.js"></script>
     <script defer src="../statics2/js/admin.js"></script>
 </head>
+
 <body>
-    
+
     <!-- Menú lateral -->
-    <div id="menu-lateral">
-        <button id="menu-close">✖</button>
-        <ul id="menu-list">
-            <li><a href="inicio.html">Inicio</a></li>
+    <div id="menu-lateral" class="transform transition-all duration-300 ease-in-out">
+        <button id="menu-close"
+            class="absolute top-4 right-4 text-white hover:bg-emerald-600 rounded-full p-2">✖</button>
+        <ul id="menu-list" class="mt-16">
+            <li class="mb-4">
+                <a href="inicio.html"
+                    class="flex items-center px-6 py-3 text-white hover:bg-emerald-600 rounded-lg transition-colors">
+                    <span class="mr-3">🏠</span>
+                    Inicio
+                </a>
+            </li>
             <li><a href="MountainsMenu.html">Montañas</a></li>
             <li><a href="guias.html">Guías</a></li>
             <li><a href="equipo.html">Equipo</a></li>
@@ -38,8 +47,8 @@ session_start();
         // if (isset($_SESSION['username']) && $_SESSION['username'] == 'admin') { 
         ?>
             <!-- Para pruebas sin sesión, simplemente muestra el enlace de "Administrar" -->
-            <li class= menu-admin><a href="administrar.html">Administrar</a></li>
-        <?php 
+            <li class=menu-admin><a href="administrar.html">Administrar</a></li>
+            <?php 
         // }
         ?>
         </ul>
@@ -53,15 +62,25 @@ session_start();
         <button id="menu-btn">☰</button>
         <div id="logo">Inti Cumbres</div>
         <div id="search-container">
-            <form>
-                <input type="text" id="search" placeholder="Buscar...">    
-            </form>
- 
+            <input type="text" id="search" placeholder="Buscar...">
+            <a href="../configBD/logout.php" class="logout-btn">Cerrar sesión</a>
         </div>
-        
-        <a href="../configBD/logout.php">Cerrar sesion</a>
     </header>
+
+    <div id="menu-lateral">
+        <button id="menu-close">✖</button>
+        <ul id="menu-list">
+            <li><a href="inicio.html">Inicio</a></li>
+            <li><a href="MountainsMenu.html">Montañas</a></li>
+            <li><a href="guias.html">Guías</a></li>
+            <li><a href="equipo.html">Equipo</a></li>
+            <li><a href="temporadas.html">Temporadas</a></li>
+            <li><a href="refugios.html">Refugios</a></li>
+            <li class="menu-admin"><a href="administrar.html">Administrar</a></li>
+        </ul>
+    </div>
 
     <main id="main-content"></main>
 </body>
+
 </html>

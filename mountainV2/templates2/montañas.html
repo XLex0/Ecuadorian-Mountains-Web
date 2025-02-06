@@ -9,16 +9,9 @@
     <link rel="stylesheet" href="../statics2/css/styles.css">
 </head>
 <body>
-
-
-    <!-- Contenido principal -->
     <main id="main-content">
-     
-
-
         <section class="info-container">
             <h1 id="mountainName" class="mountain-title"></h1>
-
             <div id="imagenContainer" class="image-box">
                 <img id="mountainImage" src="" alt="Imagen de Montaña">
             </div>
@@ -41,28 +34,46 @@
         </section>
 
         <section class="info-container">
-            
             <h2>Ubicación</h2>
             <div id="map"></div>
         </section>
 
-        <!-- Sección de comentarios -->
+        <!-- Nueva sección de comentarios -->
         <section class="info-container">
-            <h2>Comentarios</h2>
-            <table class="comentarios-table">
-                <thead>
-                    <tr>
-                        <th>Nombre</th>
-                        <th>Comentario</th>
-                        <th>Calificación</th>
-                        <th>Fecha</th>
-                    </tr>
-                </thead>
-                <tbody id="comentarios">
-                </tbody>
-            </table>
+            <h2>Deja tu opinión</h2>
+            <div class="comentario-form">
+                <div class="rating-stars">
+                    <div class="stars" id="stars-container">
+                        <i class="far fa-star" data-rating="1">★</i>
+                        <i class="far fa-star" data-rating="2">★</i>
+                        <i class="far fa-star" data-rating="3">★</i>
+                        <i class="far fa-star" data-rating="4">★</i>
+                        <i class="far fa-star" data-rating="5">★</i>
+                    </div>
+                    <input type="hidden" id="rating-value" value="0">
+                </div>
+                <textarea id="comentario-texto" class="comentario-input" rows="4" placeholder="Comparte tu experiencia..."></textarea>
+                <button id="submit-comentario" class="btn-comentar">Enviar comentario</button>
+            </div>
         </section>
 
+        <section class="info-container">
+            <h2>Comentarios y Valoraciones</h2>
+            <div class="comentarios-wrapper">
+                <table class="comentarios-table">
+                    <thead>
+                        <tr>
+                            <th>Usuario</th>
+                            <th>Comentario</th>
+                            <th>Calificación</th>
+                            <th>Fecha</th>
+                        </tr>
+                    </thead>
+                    <tbody id="comentarios">
+                    </tbody>
+                </table>
+            </div>
+        </section>
     </main>
 </body>
 </html>
