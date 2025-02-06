@@ -3,25 +3,36 @@ include 'configBD.php';
 
 // Verificar si los datos POST están presentes
 if (isset($_POST['extraer']) && isset($_POST['searchText'])) {
-    $id = $_POST['searchText'];
+    $extraer = $_POST['extraer'];
+    $id = $conn->real_escape_string($_POST['searchText']); // Sanitizar entrada
 
-    // Sanitizar la entrada para evitar inyección SQL
-    $id = $conn->real_escape_string($id);
+    $data = array();
 
-    // Primera consulta: buscar por ID
-    $sql = "SELECT nombre, longitud, latitud, ubicacion, altura, tipo, descripcion, urlImagenPrincipal, mapsEmbeded 
-            FROM montanas 
-            WHERE id = '$id'";
+    if ($extraer == 'descripcion') {
+        // Primera consulta: buscar por ID
+        $sql = "SELECT nombre, longitud, latitud, ubicacion, altura, tipo, descripcion, urlImagenPrincipal, mapsEmbeded 
+                FROM montanas 
+                WHERE id = '$id'";
+    } elseif ($extraer == 'mountain') {
+        $sql = "SELECT longitud, latitud, ubicacion, altura, tipo 
+                FROM montanas  
+                WHERE id = '$id'";
+    } elseif ($extraer == 'all') {
+        $sql = "SELECT id, nombre, longitud, latitud, ubicacion, altura, tipo, urlImagenPrincipal 
+                FROM montanas";
+    } else {
+        echo json_encode(array("error" => "Parámetro 'extraer' no válido"));
+        exit;
+    }
 
     $result = $conn->query($sql);
-    $data = array();
 
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
             $data[] = $row;
         }
-    } else {
-        // Segunda consulta: buscar por nombre si no se encontró por ID
+    } elseif ($extraer == 'descripcion') {
+        // Si no se encuentra por ID, buscar por nombre
         $sql = "SELECT nombre, longitud, latitud, ubicacion, altura, tipo, descripcion, urlImagenPrincipal, mapsEmbeded 
                 FROM montanas 
                 WHERE nombre LIKE '$id%'";
@@ -34,6 +45,8 @@ if (isset($_POST['extraer']) && isset($_POST['searchText'])) {
         } else {
             $data[] = array("error" => "No se encontraron resultados");
         }
+    } else {
+        $data[] = array("error" => "No se encontraron resultados");
     }
 
     echo json_encode($data);
@@ -42,4 +55,3 @@ if (isset($_POST['extraer']) && isset($_POST['searchText'])) {
 }
 
 $conn->close();
-?>
