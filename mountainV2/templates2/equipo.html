@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Equipo Recomendado</title>
+    <link rel="stylesheet" href="../statics2/css/styles.css">
+    <style>
+        .equipo-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .montana-section {
+            margin-bottom: 30px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .montana-header {
+            background: #2c3e50;
+            color: white;
+            padding: 15px 20px;
+            font-size: 1.5em;
+        }
+
+        .equipo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .equipo-card {
+            border: 1px solid #eee;
+            border-radius: 8px;
+            padding: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .equipo-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .equipo-obligatorio {
+            border-left: 4px solid #e74c3c;
+        }
+
+        .equipo-opcional {
+            border-left: 4px solid #3498db;
+        }
+
+        .equipo-nombre {
+            font-size: 1.2em;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .equipo-descripcion {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .etiqueta {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            margin-top: 10px;
+        }
+
+        .etiqueta-obligatorio {
+            background-color: #ffebee;
+            color: #e74c3c;
+        }
+
+        .etiqueta-opcional {
+            background-color: #e3f2fd;
+            color: #3498db;
+        }
+    </style>
+</head>
+<body>
+    <main id="main-content">
+        <h1 class="page-title">Equipo Recomendado</h1>
+        <div class="equipo-container" id="equipoContainer">
+            <!-- El contenido se cargará dinámicamente -->
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('../configBD/getEquipo.php')
+                .then(response => response.json())
+                .then(equipos => {
+                    const container = document.getElementById('equipoContainer');
+                    const equiposPorMontana = {};
+
+                    // Agrupar equipo por montaña
+                    equipos.forEach(equipo => {
+                        if (!equiposPorMontana[equipo.montana_nombre]) {
+                            equiposPorMontana[equipo.montana_nombre] = [];
+                        }
+                        equiposPorMontana[equipo.montana_nombre].push(equipo);
+                    });
+
+                    // Crear secciones por montaña
+                    for (const montana in equiposPorMontana) {
+                        const section = document.createElement('div');
+                        section.className = 'montana-section';
+                        
+                        section.innerHTML = `
+                            <div class="montana-header">${montana}</div>
+                            <div class="equipo-grid">
+                                ${equiposPorMontana[montana].map(equipo => `
+                                    <div class="equipo-card ${equipo.obligatorio == 1 ? 'equipo-obligatorio' : 'equipo-opcional'}">
+                                        <div class="equipo-nombre">${equipo.nombre}</div>
+                                        <div class="equipo-descripcion">${equipo.descripcion}</div>
+                                        <span class="etiqueta ${equipo.obligatorio == 1 ? 'etiqueta-obligatorio' : 'etiqueta-opcional'}">
+                                            ${equipo.obligatorio == 1 ? 'Obligatorio' : 'Opcional'}
+                                        </span>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        `;
+                        
+                        container.appendChild(section);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('equipoContainer').innerHTML = 
+                        '<p style="text-align: center; color: red;">Error al cargar la información del equipo.</p>';
+                });
+        });
+    </script>
+</body>
+</html>

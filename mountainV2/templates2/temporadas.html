@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temporadas de Montaña</title>
+    <link rel="stylesheet" href="../statics2/css/styles.css">
+    <style>
+        .temporadas-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .montana-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .montana-header {
+            background: #2c3e50;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .temporada-info {
+            padding: 20px;
+        }
+
+        .meses-timeline {
+            display: flex;
+            margin: 20px 0;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .mes {
+            flex: 1;
+            text-align: center;
+            padding: 8px;
+            background: #f5f6fa;
+        }
+
+        .mes-activo {
+            background: #27ae60;
+            color: white;
+        }
+
+        .condiciones {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 15px;
+        }
+
+        .temporada-descripcion {
+            margin: 15px 0;
+            line-height: 1.6;
+        }
+
+        .condiciones-title {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .montana-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .meses-timeline {
+                flex-wrap: wrap;
+            }
+
+            .mes {
+                flex-basis: 25%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main id="main-content">
+        <h1 style="text-align: center; margin: 20px 0;">Temporadas de Montaña</h1>
+        <div class="temporadas-container" id="temporadasContainer">
+            <!-- El contenido se cargará dinámicamente -->
+        </div>
+    </main>
+</body>
+</html>

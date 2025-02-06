@@ -1,0 +1,143 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guías de Montaña</title>
+    <link rel="stylesheet" href="../statics2/css/styles.css">
+    <style>
+        .guia-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            border: 1px solid #eee;
+        }
+
+        .guia-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .guia-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .guia-nombre {
+            font-size: 1.5em;
+            color: #2c3e50;
+            margin: 0;
+        }
+
+        .guia-cert {
+            color: #666;
+            font-style: italic;
+            padding: 5px 10px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+        }
+
+        .guia-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .guia-info p {
+            margin: 10px 0;
+            color: #34495e;
+        }
+
+        .guia-info strong {
+            color: #2c3e50;
+        }
+
+        .montana-tag {
+            display: inline-block;
+            padding: 5px 10px;
+            background-color: #e9ecef;
+            border-radius: 4px;
+            color: #2c3e50;
+            font-weight: 500;
+        }
+
+        .page-title {
+            text-align: center;
+            color: #2c3e50;
+            margin: 30px 0;
+            font-size: 2.5em;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .contact-link {
+            color: #3498db;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-link:hover {
+            color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <main id="main-content">
+        <h1 class="page-title">Guías de Montaña</h1>
+        
+        <div id="guiasContainer" style="max-width: 1200px; margin: 0 auto; padding: 20px;">
+            <!-- Los guías se cargarán aquí dinámicamente -->
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('../configBD/getGuias.php')
+                .then(response => response.json())
+                .then(guias => {
+                    const container = document.getElementById('guiasContainer');
+                    
+                    guias.forEach(guia => {
+                        const card = document.createElement('div');
+                        card.className = 'guia-card';
+                        
+                        const contacto = guia.contacto.includes('@') ? 
+                            `<a href="mailto:${guia.contacto}" class="contact-link">${guia.contacto}</a>` : 
+                            `<a href="tel:${guia.contacto}" class="contact-link">${guia.contacto}</a>`;
+                        
+                        card.innerHTML = `
+                            <div class="guia-header">
+                                <h2 class="guia-nombre">${guia.nombre}</h2>
+                                <span class="guia-cert">${guia.certificaciones}</span>
+                            </div>
+                            <div class="guia-details">
+                                <div class="guia-info">
+                                    <p><strong>Experiencia:</strong> ${guia.experiencia}</p>
+                                    <p><strong>Contacto:</strong> ${contacto}</p>
+                                </div>
+                                <div class="guia-info">
+                                    <p><strong>Tarifas:</strong> ${guia.tarifas}</p>
+                                    <p><strong>Montaña:</strong> <span class="montana-tag">${guia.montana_nombre}</span></p>
+                                </div>
+                            </div>
+                        `;
+                        
+                        container.appendChild(card);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('guiasContainer').innerHTML = 
+                        '<p style="text-align: center; color: red;">Error al cargar la información de los guías.</p>';
+                });
+        });
+    </script>
+</body>
+</html>
