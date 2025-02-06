@@ -14,7 +14,7 @@
          .then(response => response.json())
          .then(data => {
             console.log(data);
-             // Limpiar el contenido previo (usando JavaScript vanilla)
+             // Limpiar el contenido previo 
          const descripcionElement = document.getElementById('descripcion');
          descripcionElement.innerHTML = ''; 
          // Iterar y añadir elementos

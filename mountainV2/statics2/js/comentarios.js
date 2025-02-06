@@ -10,6 +10,8 @@ function cargarComentarios(id){
     .then(response => response.json())
     .then(data => {
         console.log(data);
+        const descripcionElement = document.getElementById('comentarios');
+        descripcionElement.innerHTML = ''; 
     // Iterar y añadir elementos
     data.forEach(item => {
         const row = document.createElement('tr');

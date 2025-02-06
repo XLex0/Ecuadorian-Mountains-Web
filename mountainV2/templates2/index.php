@@ -2,10 +2,10 @@
 session_start();
 
 // Verificar si el usuario está logueado
-// if (!isset($_SESSION['usuario'])) {
-//     header("Location: login.html");  // Redirigir al login si no está logueado
-//     exit();
-// }
+ if (!isset($_SESSION['username'])) {
+     header("Location: login.html");  // Redirigir al login si no está logueado
+     exit();
+ }
 ?>
 
 <!DOCTYPE html>
@@ -28,7 +28,6 @@ session_start();
         <ul id="menu-list">
             <li><a href="inicio.html">Inicio</a></li>
             <li><a href="MountainsMenu.html">Montañas</a></li>
-            <li><a href="rutas.html">Rutas</a></li>
             <li><a href="guias.html">Guías</a></li>
             <li><a href="equipo.html">Equipo</a></li>
             <li><a href="temporadas.html">Temporadas</a></li>
@@ -60,7 +59,7 @@ session_start();
  
         </div>
         
-        <a href="login.html">login</a>
+        <a href="../configBD/logout.php">Cerrar sesion</a>
     </header>
 
     <main id="main-content"></main>
