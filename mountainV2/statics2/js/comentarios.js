@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", function() {
     if (formLogin) {
         formLogin.addEventListener('submit', function(event) {
             event.preventDefault(); // Evita la recarga
-
+            console.log('Formulario enviado');
             verificarUsuario();
         });
     }
@@ -58,6 +58,8 @@ document.addEventListener("DOMContentLoaded", function() {
 function verificarUsuario() {
     var username = document.getElementById('username').value;
     var password = document.getElementById('password').value;
+
+    console.log(username, password);    
 
 fetch('../configBD/login.php', {
     method: 'POST',
@@ -71,6 +73,8 @@ fetch('../configBD/login.php', {
 })
 .then(data => {
     console.log(data);
+    console.log(data.contra + " " + data.contraEnviada);
+
     if (data.status === 'ok') {
         window.location.href = 'index.php';
     } else {

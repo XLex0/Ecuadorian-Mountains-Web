@@ -12,7 +12,7 @@ ob_start(); // Captura cualquier salida antes del JSON
 $response = ["status" => "error"];
 
 // Verificar si los datos fueron enviados correctamente
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
     if (!isset($_POST['username']) || !isset($_POST['password'])) {
         ob_end_clean();
         echo json_encode(["status" => "faltan valores"]);
@@ -42,10 +42,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $result = $stmt->get_result();
 
     if ($row = $result->fetch_assoc()) {
-        if (password_verify($password, $row["password_hash"])) {
+        $password_hashed = password_hash($password, PASSWORD_DEFAULT);
+        $response["contra"] = $row["password_hash"];
+        $response["contraEnviada"] = $password_hashed;
+        if (password_verify($password, $password_hashed)){
             $_SESSION["user_id"] = $row["id"];
             $_SESSION["username"] = $username;
-
+   
+            
             $response["status"] = "ok";
             $response["redirect"] = "../templates2/index.php";
         } else {
@@ -57,11 +61,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $stmt->close();
     $conn->close();
-} else {
-    $response["status"] = "método no permitido";
-}    
+
 // Limpiar y enviar JSON correctamente
 ob_end_clean();
 echo json_encode($response);
 exit;
 ?>
+
