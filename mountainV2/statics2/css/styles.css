@@ -987,6 +987,63 @@ body {
     animation: fadeInUp 0.5s ease-out;
 }
 
+.background-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.background-image {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.3;
+    transition: opacity 0.5s ease;
+}
+
+.background-image::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 100, 0, 0.3);
+    mix-blend-mode: multiply;
+}
+
+.background-container:hover .background-image {
+    opacity: 0.5;
+}
+
+.refugios-fondo {
+    background-image: url('../img/refugios-fondo.jpg');
+}
+
+.montanias-fondo {
+    background-image: url('../img/montanias-fondo.jpg');
+}
+
+.inicio-fondo {
+    background-image: url('../img/inicio-fondo.jpg');
+}
+
+.guide-fondo {
+    background-image: url('../img/guide-fondo.jpg');
+}
+
+.equipment-fondo {
+    background-image: url('../img/equipment-fondo.jpg');
+}
+
+.temporadas-fondo {
+    background-image: url('../img/temporadas-fondo.jpg');
+}
+
 @keyframes fadeInUp {
     from {
         opacity: 0;
