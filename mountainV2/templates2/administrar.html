@@ -6,7 +6,7 @@
     <script defer src="../statics2/js/script2.js"></script>
     <script defer src="../statics2/js/mountain.js"></script>
     <script defer src="../statics2/js/comentarios.js"></script>
-    
+    <script defer src="../statics2/js/admin.js"></script>
     <link rel="stylesheet" href="../statics2/css/styles.css">
     <style>
         .admin-b:hover {
@@ -24,11 +24,18 @@
 
         <div  id= "initialAdmin" style="display: flex; justify-content: center; align-items: center; height: 50vh;">
             <div style="text-align: center;">
-                <button id="add" class="admin-b" style="background-color: rgb(62, 135, 95); color: white; padding: 15px 30px; font-size: 18px; border: none; border-radius: 8px; cursor: pointer; margin: 20px; transition: all 0.3s ease;">Ingresar Montaña</button>
-                <button id="delete" class="admin-b" style="background-color: rgb(200, 50, 50); color: white; padding: 15px 30px; font-size: 18px; border: none; border-radius: 8px; cursor: pointer; margin: 20px; transition: all 0.3s ease;">Borrar Montaña</button>
+                <button id="add" class="admin-b" style="background-color: rgb(62, 135, 95); color: white; padding: 15px 30px; font-size: 18px; border: none; border-radius: 8px; cursor: pointer; margin: 20px; transition: all 0.3s ease;" onclick="hideInitialAdmin('add')">Ingresar Montaña</button>
+                <button id="delete" class="admin-b" style="background-color: rgb(200, 50, 50); color: white; padding: 15px 30px; font-size: 18px; border: none; border-radius: 8px; cursor: pointer; margin: 20px; transition: all 0.3s ease;" onclick="hideInitialAdmin('delete')">Borrar Montaña</button>
             </div>
         </div>
-        <script defer src="../statics2/js/admin.js"></script>
+
+        <div id="addForm"></div>
+
+        <div id="testAddForm">
+            
+
+        </div>
+    
 
     </main>
 </body>

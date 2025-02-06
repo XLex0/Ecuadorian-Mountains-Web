@@ -18,6 +18,7 @@ session_start();
     <script defer src="../statics2/js/script2.js"></script>
     <script defer src="../statics2/js/mountain.js"></script>
     <script defer src="../statics2/js/comentarios.js"></script>
+    <script defer src="../statics2/js/admin.js"></script>
 </head>
 <body>
     
