@@ -39,22 +39,63 @@
         </section>
 
         <!-- Nueva sección de comentarios -->
-        <section class="info-container">
+        <section class="info-container comments-section">
             <h2>Deja tu opinión</h2>
-            <div class="comentario-form">
-                <div class="rating-stars">
-                    <div class="stars" id="stars-container">
-                        <i class="far fa-star" data-rating="1">★</i>
-                        <i class="far fa-star" data-rating="2">★</i>
-                        <i class="far fa-star" data-rating="3">★</i>
-                        <i class="far fa-star" data-rating="4">★</i>
-                        <i class="far fa-star" data-rating="5">★</i>
-                    </div>
-                    <input type="hidden" id="rating-value" value="0">
+            <div class="rating-stars">
+                <div class="stars" id="stars-container">
+                    <i class="fas fa-star" data-rating="1"></i>
+                    <i class="fas fa-star" data-rating="2"></i>
+                    <i class="fas fa-star" data-rating="3"></i>
+                    <i class="fas fa-star" data-rating="4"></i>
+                    <i class="fas fa-star" data-rating="5"></i>
                 </div>
-                <textarea id="comentario-texto" class="comentario-input" rows="4" placeholder="Comparte tu experiencia..."></textarea>
-                <button id="submit-comentario" class="btn-comentar">Enviar comentario</button>
+                <input type="hidden" id="rating-value" value="0">
             </div>
+        
+            <textarea id="comentario-texto" class="comentario-input animate-input" 
+                      placeholder="Comparte tu experiencia..." rows="4"></textarea>
+        
+            <div class="comment-user-status">
+                <div id="userStatus" class="user-status">
+                    <!-- Se llenará dinámicamente vía JavaScript -->
+                </div>
+            </div>
+        
+            <button id="submit-comentario" class="btn-comentar">
+                <i class="fas fa-paper-plane"></i> Enviar comentario
+            </button>
+        </div>
+        </section>
+        
+        <style>
+        .comment-user-status {
+            margin: 15px 0;
+            padding: 10px;
+            border-radius: 5px;
+            background: #f8f9fa;
+            text-align: center;
+        }
+        
+        .user-status {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 0.9em;
+        }
+        
+        .user-status a {
+            color: var(--primary-color);
+            text-decoration: none;
+            padding: 4px 8px;
+            border-radius: 4px;
+            background: rgba(47, 133, 90, 0.1);
+        }
+        
+        .user-status a:hover {
+            background: rgba(47, 133, 90, 0.2);
+        }
+        </style>
         </section>
 
         <section class="info-container">

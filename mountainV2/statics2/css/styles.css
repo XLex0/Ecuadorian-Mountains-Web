@@ -5,8 +5,20 @@
     --accent-color: #9AE6B4;
     --background-light: #F0FFF4;
     --text-dark: #1A202C;
-  }
-  
+    --gradient-start: #2F855A;
+    --gradient-end: #276749;
+}
+
+/* Animaciones y efectos visuales */
+.animate-input {
+    transform-origin: left;
+    transition: all 0.3s ease;
+}
+
+.animate-input:focus {
+    transform: scale(1.01);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
   
 * {
     margin: 0;
@@ -23,14 +35,37 @@ body {
 }
   
 /* Encabezado */
+/* Añadir al styles.css */
 #header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: var(--primary-color);
     padding: 1rem 2rem;
+    background: var(--primary-color);
     color: white;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 2rem; /* Espacio entre el botón de menú y el logo */
+}
+#logo {
+    display: flex;
+    align-items: center;
+    max-width: 150px; /* Limitar el ancho máximo */
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.logo-img {
+    height: 40px;
+    width: auto;
+    margin-left: 1rem;
+    object-fit: contain;
 }
 
 .header-controls {
@@ -68,6 +103,32 @@ body {
     font-size: 20px;
     cursor: pointer;
     padding: 8px;
+}
+
+/* Cursor personalizado */
+.custom-cursor {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--primary-color);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transition: all 0.1s ease;
+    transform: translate(-50%, -50%);
+}
+
+/* Fondos temáticos para cada sección */
+.mountains-background {
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+                url('../img/mountain-bg.jpg') center/cover;
+    color: white;
+}
+
+.routes-background {
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+                url('../img/routes-bg.jpg') center/cover;
+    color: white;
 }
 
 #overlay {
@@ -416,7 +477,120 @@ body {
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
+.page-animation {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+/* Iconos animados */
+.animated-icon {
+    animation: float 3s ease-in-out infinite;
+}
+
+.guias-section {
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+                url('../img/guides-bg.jpg') center/cover fixed;
+    padding: 2rem;
+}
+
+.guia-card {
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+}
+
+.guia-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+}
+
+/* Estilos para la página de equipo */
+.equipo-section {
+    background: linear-gradient(135deg, #276749 0%, #2F855A 100%);
+    padding: 2rem;
+}
+
+.equipo-card {
+    background: white;
+    border-radius: 15px;
+    padding: 1.5rem;
+    margin: 1rem;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.equipo-card:hover {
+    transform: scale(1.03);
+}
+
+/* Estilos para la página de refugios */
+.refugio-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 15px;
+}
+
+.refugio-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+    transition: transform 0.3s ease;
+}
+
+.refugio-card:hover .refugio-image {
+    transform: scale(1.1);
+}
+
+.refugio-content {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(5px);
+    padding: 2rem;
+}
+
+/* Estilos para la página de temporadas */
+.temporada-timeline {
+    display: flex;
+    overflow-x: auto;
+    padding: 2rem 0;
+    position: relative;
+}
+
+.temporada-month {
+    flex: 0 0 auto;
+    width: 100px;
+    text-align: center;
+    padding: 1rem;
+    position: relative;
+}
+
+.temporada-month.active {
+    background: var(--primary-color);
+    color: white;
+    border-radius: 8px;
+}
+
+.temporada-month::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    width: 2px;
+    height: 10px;
+    background: var(--primary-color);
+}
+
+
 /* Animaciones generales */
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+
 @keyframes fadeInUp {
     from {
       opacity: 0;
@@ -428,17 +602,21 @@ body {
     }
   }
   
-  .page-animation {
-    animation: fadeInUp 0.6s ease-out;
-  }
-
+    .fade-up {
+        animation: fadeInUp 0.5s ease-out;
+    }
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
 .mountain-card {
-    animation: fadeIn 0.5s ease-out;
+    transform: perspective(1000px) rotateY(0deg);
+    transition: transform 0.5s ease;
+}
+
+.mountain-card:hover {
+    transform: perspective(1000px) rotateY(5deg) translateY(-10px);
 }
 
 .menu-item {
@@ -461,3 +639,433 @@ body {
     }
 }
 
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes slideInFromBottom {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in-scale {
+    animation: fadeInScale 0.5s ease-out;
+}
+
+.slide-in {
+    animation: slideInFromBottom 0.5s ease-out;
+}
+
+/* 8. Mejoras en la navegación */
+.breadcrumb {
+    display: flex;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 8px;
+    margin: 1rem;
+}
+
+.breadcrumb-item {
+    display: flex;
+    align-items: center;
+}
+
+.breadcrumb-item:not(:last-child)::after {
+    content: '›';
+    margin: 0 0.5rem;
+    color: var(--primary-color);
+}
+
+/* 9. Mejoras en los formularios */
+.form-group {
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    background: #f1f5f9;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: var(--primary-color);
+    background: white;
+    outline: none;
+}
+
+.form-label {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    transition: all 0.3s ease;
+    color: #64748b;
+}
+
+.form-control:focus + .form-label,
+.form-control:not(:placeholder-shown) + .form-label {
+    top: -0.5rem;
+    left: 0.5rem;
+    font-size: 0.875rem;
+    background: white;
+    padding: 0 0.5rem;
+}
+
+/* 10. Loading States */
+.loading-skeleton {
+    background: linear-gradient(90deg, 
+        #f0f0f0 25%, 
+        #e0e0e0 50%, 
+        #f0f0f0 75%
+    );
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+/* 11. Mejoras en la accesibilidad */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    padding: 8px;
+    background: var(--primary-color);
+    color: white;
+    z-index: 100;
+}
+
+.skip-link:focus {
+    top: 0;
+}
+
+/* 12. Responsive Design Improvements */
+@media (max-width: 768px) {
+    .mountain-card,
+    .guia-card,
+    .refugio-card {
+        margin: 1rem;
+    }
+
+    .header-controls {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .search-wrapper {
+        width: 100%;
+    }
+
+    .temporada-timeline {
+        padding: 1rem 0;
+    }
+
+    .temporada-month {
+        width: 80px;
+    }
+}
+
+@media (min-width: 769px) {
+    .grid-layout {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 2rem;
+    }
+}
+
+.comments-section {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    margin-bottom: 2rem;
+}
+
+.user-status-banner {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    padding: 1rem;
+    border-radius: 10px;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: slideInDown 0.5s ease-out;
+}
+
+@keyframes slideInDown {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.user-badge, .anonymous-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: rgba(255,255,255,0.1);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+}
+
+.user-badge {
+    border: 2px solid rgba(255,255,255,0.2);
+}
+
+.username-display {
+    font-weight: 500;
+    color: white;
+}
+
+.login-link {
+    color: white;
+    text-decoration: none;
+    padding: 0.25rem 0.75rem;
+    background: rgba(255,255,255,0.2);
+    border-radius: 15px;
+    margin-left: 1rem;
+    transition: all 0.3s ease;
+}
+
+.login-link:hover {
+    background: rgba(255,255,255,0.3);
+    transform: translateY(-2px);
+}
+
+.rating-stars {
+    margin: 1.5rem 0;
+    display: flex;
+    justify-content: center;
+}
+
+.stars {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.stars i {
+    font-size: 1.5rem;
+    color: #ddd;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.stars i.active {
+    color: #ffd700;
+    transform: scale(1.2);
+}
+
+.stars i:hover {
+    transform: scale(1.3);
+}
+
+.comentario-input {
+    width: 100%;
+    padding: 1rem;
+    border: 2px solid #eee;
+    border-radius: 10px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    resize: vertical;
+    min-height: 100px;
+}
+
+.comentario-input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(47, 133, 90, 0.1);
+    outline: none;
+}
+
+.btn-comentar {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 25px;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 1rem auto;
+    transition: all 0.3s ease;
+}
+
+.btn-comentar:hover {
+    background: var(--secondary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.btn-comentar i {
+    transition: transform 0.3s ease;
+}
+
+.btn-comentar:hover i {
+    transform: translateX(4px);
+}
+
+/* Estilos para la tabla de comentarios */
+.comentarios-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 0.5rem;
+    margin-top: 1rem;
+}
+
+.comentarios-table th {
+    background: var(--primary-color);
+    color: white;
+    padding: 1rem;
+    text-align: left;
+}
+
+.comentarios-table td {
+    background: white;
+    padding: 1rem;
+    border-top: 1px solid #eee;
+}
+
+.comentarios-table tr:hover td {
+    background: #f8f9fa;
+}
+
+.comentarios-table tr td:first-child {
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+
+.comentarios-table tr td:last-child {
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+/* Animaciones para los comentarios */
+.comentario-nuevo {
+    animation: fadeInUp 0.5s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.comment-user-status {
+    margin: 15px 0;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.user-status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 15px;
+    border-radius: 20px;
+    background: var(--primary-color);
+    color: white;
+    font-size: 0.95em;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.user-status-badge.logged-in {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+}
+
+.user-status-badge.anonymous {
+    background: linear-gradient(135deg, #718096, #4A5568);
+}
+
+.user-status-badge i {
+    font-size: 1.2em;
+}
+
+.status-text {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.status-text strong {
+    color: #E2E8F0;
+}
+
+.status-text a {
+    color: #E2E8F0;
+    text-decoration: none;
+    padding: 4px 8px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.status-text a:hover {
+    background: rgba(255,255,255,0.3);
+    transform: translateY(-1px);
+}
+
+/* Animación para el cambio de estado */
+.user-status-badge {
+    animation: fadeInDown 0.3s ease-out;
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

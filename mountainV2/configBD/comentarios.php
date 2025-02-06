@@ -4,34 +4,40 @@ include 'configBD.php';
 header('Content-Type: application/json');
 
 if (isset($_POST['searchText'])) {
-    $id = $conn->real_escape_string($_POST['searchText']);
-    $is_anonymous = !isset($_SESSION['user_id']);
+    // Si es un nombre, primero obtener el ID
+    $searchText = $conn->real_escape_string($_POST['searchText']);
     
-    // Para usuarios anónimos, verificar si ya han comentado usando la IP
-    if ($is_anonymous) {
-        $ip_address = $_SERVER['REMOTE_ADDR'];
-        $check_ip = "SELECT COUNT(*) as count FROM comentarios_anonimos WHERE ip_address = ? AND montana_id = ?";
-        $stmt = $conn->prepare($check_ip);
-        $stmt->bind_param("si", $ip_address, $id);
+    // Primero intentar obtener el ID si se pasó un nombre
+    if (!is_numeric($searchText)) {
+        $sql = "SELECT id FROM montanas WHERE nombre LIKE ?";
+        $stmt = $conn->prepare($sql);
+        $searchPattern = "%$searchText%";
+        $stmt->bind_param("s", $searchPattern);
         $stmt->execute();
         $result = $stmt->get_result();
-        $count = $result->fetch_assoc()['count'];
-        
-        if ($count > 0) {
-            echo json_encode(['error' => 'Ya has dejado un comentario anónimo para esta montaña']);
+        if ($row = $result->fetch_assoc()) {
+            $id = $row['id'];
+        } else {
+            echo json_encode(['error' => 'Montaña no encontrada']);
             exit;
         }
+    } else {
+        $id = $searchText;
     }
-
-    // Obtener comentarios existentes
-    $sql = "SELECT c.comentario, 
-            COALESCE(u.username, 'Anónimo') as nombreUsuario,
-            c.calificacion, 
-            c.fecha_comentario as fecha
-            FROM montanas m
-            LEFT JOIN comentarios c ON m.id = c.montana_id
+    
+    // Obtener comentarios
+    $sql = "SELECT 
+                c.comentario, 
+                CASE 
+                    WHEN c.es_anonimo = 1 THEN 'Anónimo'
+                    ELSE COALESCE(u.username, 'Usuario')
+                END as nombreUsuario,
+                c.calificacion, 
+                c.fecha_comentario as fecha
+            FROM comentarios c
             LEFT JOIN usuarios u ON c.usuario_id = u.id
-            WHERE m.id = ?";
+            WHERE c.montana_id = ?
+            ORDER BY c.fecha_comentario DESC";
 
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $id);
@@ -40,12 +46,17 @@ if (isset($_POST['searchText'])) {
     $data = array();
 
     while ($row = $result->fetch_assoc()) {
-        $data[] = $row;
+        $data[] = array(
+            'nombreUsuario' => $row['nombreUsuario'],
+            'comentario' => $row['comentario'],
+            'calificacion' => $row['calificacion'],
+            'fecha' => $row['fecha']
+        );
     }
 
     echo json_encode($data);
 } else {
-    echo json_encode(['error' => 'Datos POST no recibidos']);
+    echo json_encode(['error' => 'ID de montaña no recibido']);
 }
 
 $conn->close();

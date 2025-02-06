@@ -1,93 +1,107 @@
 <?php
 session_start();
-
-// Verificar si el usuario está logueado
- if (!isset($_SESSION['username'])) {
-     header("Location: login.html");  // Redirigir al login si no está logueado
-     exit();
- }
+// Removemos la redirección forzada al login
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>encabezado</title>
+    <title>Inti Cumbres</title>
     <link rel="stylesheet" href="../statics2/css/styles.css">
     <script defer src="../statics2/js/script2.js"></script>
     <script defer src="../statics2/js/mountain.js"></script>
     <script defer src="../statics2/js/comentarios.js"></script>
     <script defer src="../statics2/js/admin.js"></script>
+    <!-- Añadimos FontAwesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-
 <body>
-
-    <!-- Menú lateral -->
     <div id="menu-lateral" class="transform transition-all duration-300 ease-in-out">
-        <button id="menu-close"
-            class="absolute top-4 right-4 text-white hover:bg-emerald-600 rounded-full p-2">✖</button>
+        <button id="menu-close" class="absolute top-4 right-4 text-white hover:bg-emerald-600 rounded-full p-2">
+            <i class="fas fa-times"></i>
+        </button>
         <ul id="menu-list" class="mt-16">
-            <li class="mb-4">
-                <a href="inicio.html"
-                    class="flex items-center px-6 py-3 text-white hover:bg-emerald-600 rounded-lg transition-colors">
-                    <span class="mr-3">🏠</span>
+            <li>
+                <a href="inicio.html">
+                    <i class="fas fa-home"></i>
                     Inicio
                 </a>
             </li>
-            <li><a href="MountainsMenu.html">Montañas</a></li>
-            <li><a href="guias.html">Guías</a></li>
-            <li><a href="equipo.html">Equipo</a></li>
-            <li><a href="temporadas.html">Temporadas</a></li>
-            <li><a href="refugios.html">Refugios</a></li>
-
-            <?php 
-        // Para probar sin necesidad de loguearse, descomenta la línea a continuación
-        // if (isset($_SESSION['username']) && $_SESSION['username'] == 'admin') { 
-        ?>
-            <!-- Para pruebas sin sesión, simplemente muestra el enlace de "Administrar" -->
-            <li class=menu-admin><a href="administrar.html">Administrar</a></li>
-            <?php 
-        // }
-        ?>
+            <li>
+                <a href="MountainsMenu.html">
+                    <i class="fas fa-mountain"></i>
+                    Montañas
+                </a>
+            </li>
+            <li>
+                <a href="guias.html">
+                    <i class="fas fa-user-tie"></i>
+                    Guías
+                </a>
+            </li>
+            <li>
+                <a href="equipo.html">
+                    <i class="fas fa-hiking"></i>
+                    Equipo
+                </a>
+            </li>
+            <li>
+                <a href="temporadas.html">
+                    <i class="fas fa-calendar-alt"></i>
+                    Temporadas
+                </a>
+            </li>
+            <li>
+                <a href="refugios.html">
+                    <i class="fas fa-hotel"></i>
+                    Refugios
+                </a>
+            </li>
+            <?php if (isset($_SESSION['username']) && $_SESSION['username'] == 'admin'): ?>
+            <li class="menu-admin">
+                <a href="administrar.html">
+                    <i class="fas fa-cog"></i>
+                    Administrar
+                </a>
+            </li>
+            <?php endif; ?>
         </ul>
     </div>
 
-    <!-- Capa oscura para cerrar el menú -->
     <div id="overlay"></div>
 
-    <!-- Encabezado -->
     <header id="header">
-        <div class="flex items-center">
-            <button id="menu-btn" class="menu-btn">☰</button>
-            <div id="logo">Inti Cumbres</div>
+        <div class="header-left">
+            <button id="menu-btn" class="menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="logo-container">
+                <img src="../statics2/img/IntiCumbresLogo.png" alt="Inti Cumbres" class="logo-img">
+            </div>
         </div>
         <div class="header-controls">
             <div class="search-wrapper">
                 <input type="text" id="search" placeholder="Buscar...">
+                <i class="fas fa-search search-icon"></i>
             </div>
-            <a href="../configBD/logout.php" class="logout-button">
-                <span class="button-icon">➜</span>
-                Cerrar sesión
-            </a>
+            <?php if (isset($_SESSION['username'])): ?>
+                <a href="../configBD/logout.php" class="logout-button">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Cerrar sesión
+                </a>
+            <?php else: ?>
+                <a href="login.html" class="login-button">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Iniciar sesión
+                </a>
+            <?php endif; ?>
         </div>
     </header>
 
-    <div id="menu-lateral">
-        <button id="menu-close">✖</button>
-        <ul id="menu-list">
-            <li><a href="inicio.html">Inicio</a></li>
-            <li><a href="MountainsMenu.html">Montañas</a></li>
-            <li><a href="guias.html">Guías</a></li>
-            <li><a href="equipo.html">Equipo</a></li>
-            <li><a href="temporadas.html">Temporadas</a></li>
-            <li><a href="refugios.html">Refugios</a></li>
-            <li class="menu-admin"><a href="administrar.html">Administrar</a></li>
-        </ul>
-    </div>
-
     <main id="main-content"></main>
-</body>
 
+    <!-- Cursor personalizado -->
+    <div class="custom-cursor"></div>
+</body>
 </html>

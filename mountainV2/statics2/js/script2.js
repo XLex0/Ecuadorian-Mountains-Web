@@ -55,6 +55,161 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+// Modificaciones al script2.js para mejorar la interactividad
+
+// Cursor personalizado
+document.addEventListener('mousemove', (e) => {
+    const cursor = document.querySelector('.custom-cursor');
+    if (cursor) {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
+    }
+});
+
+// Hover effects para elementos interactivos
+document.querySelectorAll('a, button, .interactive').forEach(element => {
+    element.addEventListener('mouseenter', () => {
+        const cursor = document.querySelector('.custom-cursor');
+        if (cursor) {
+            cursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
+            cursor.style.border = '2px solid var(--accent-color)';
+        }
+    });
+
+    element.addEventListener('mouseleave', () => {
+        const cursor = document.querySelector('.custom-cursor');
+        if (cursor) {
+            cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+            cursor.style.border = '2px solid var(--primary-color)';
+        }
+    });
+});
+
+document.querySelectorAll('.mountain-card, .guia-card, .refugio-card').forEach(element => {
+    observer.observe(element);
+});
+
+// Smooth scrolling
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    });
+});
+
+// Mejoras en el formulario de comentarios
+function initializeCommentForm() {
+    const form = document.querySelector('.comentario-form');
+    if (!form) return;
+
+    const textarea = form.querySelector('textarea');
+    const charCount = document.createElement('div');
+    charCount.className = 'char-count';
+    form.appendChild(charCount);
+
+    textarea.addEventListener('input', () => {
+        const remaining = 500 - textarea.value.length;
+        charCount.textContent = `${remaining} caracteres restantes`;
+        charCount.style.color = remaining < 50 ? 'red' : 'inherit';
+    });
+
+    // Autoexpand textarea
+    textarea.addEventListener('input', function() {
+        this.style.height = 'auto';
+        this.style.height = (this.scrollHeight) + 'px';
+    });
+}
+
+// Loading states
+function showLoading(element) {
+    element.classList.add('loading-skeleton');
+    element.setAttribute('aria-busy', 'true');
+}
+
+function hideLoading(element) {
+    element.classList.remove('loading-skeleton');
+    element.removeAttribute('aria-busy');
+}
+
+// Mejorar la experiencia de carga de imágenes
+function lazyLoadImages() {
+    const images = document.querySelectorAll('img[data-src]');
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                img.src = img.dataset.src;
+                img.removeAttribute('data-src');
+                imageObserver.unobserve(img);
+            }
+        });
+    });
+
+    images.forEach(img => imageObserver.observe(img));
+}
+
+// Toast notifications
+function showToast(message, type = 'info') {
+    const toast = document.createElement('div');
+    toast.className = `toast toast-${type}`;
+    toast.textContent = message;
+    document.body.appendChild(toast);
+
+    setTimeout(() => {
+        toast.classList.add('show');
+        setTimeout(() => {
+            toast.classList.remove('show');
+            setTimeout(() => toast.remove(), 300);
+        }, 3000);
+    }, 100);
+}
+
+// Initialize all features
+document.addEventListener('DOMContentLoaded', () => {
+    initializeCommentForm();
+    lazyLoadImages();
+});
+
+// Scroll animations
+const observerOptions = {
+    root: null,
+    threshold: 0.1,
+    rootMargin: '0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('fade-in-scale');
+            observer.unobserve(entry.target);
+        }
+    });
+}, observerOptions);
+
+document.querySelectorAll('.mountain-card, .guia-card, .refugio-card').forEach(element => {
+    observer.observe(element);
+});
+
+// Smooth scrolling
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    });
+});
+
 // Función para cargar páginas
 function loadPage(page) {
     console.log("Cargando página:", page);
