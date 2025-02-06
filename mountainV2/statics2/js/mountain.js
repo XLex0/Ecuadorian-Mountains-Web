@@ -96,6 +96,27 @@ function loadMountainsMenu() {
 
 }
 
+function loadMountain(texto) {
+    var searchText = texto;
+    currentMontanaId = searchText; // Añade esta línea
+    var extraer = 'descripcion';
+    
+    fetch('../configBD/mountain.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: 'searchText=' + encodeURIComponent(searchText)
+            + '&extraer=' + encodeURIComponent(extraer)
+    })
+    .then(response => response.json())
+    .then(data => {
+        // ... resto del código ...
+        initializeRatingSystem(); // Añade esta línea
+    })
+    .catch(error => console.error('Error:', error));
+}
+
 function loadMountainInfo(mountainId) {
     const mainContent = document.getElementById('main-content');
     mainContent.innerHTML = "<p>Cargando...</p>";

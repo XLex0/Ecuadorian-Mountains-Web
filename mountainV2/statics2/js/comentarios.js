@@ -89,8 +89,23 @@ function updateStars(rating) {
 }
 
 function submitComentario() {
+    if (!currentMontanaId) {
+        console.error('ID de montaña no establecido');
+        alert('Error: ID de montaña no válido');
+        return;
+    }
+
+
+
     const comentario = document.getElementById('comentario-texto').value;
     const rating = document.getElementById('rating-value').value;
+
+    console.log('Enviando comentario:', {
+        montana_id: currentMontanaId,
+        comentario: comentario,
+        calificacion: rating
+    });
+
 
     if (!comentario || rating === '0') {
         alert('Por favor, escribe un comentario y selecciona una calificación');
