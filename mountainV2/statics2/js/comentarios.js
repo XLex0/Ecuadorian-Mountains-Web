@@ -66,6 +66,37 @@ function initializeRatingSystem() {
     }
 }
 
+
+function formatearFecha(fecha) {
+    const date = new Date(fecha);
+    return date.toLocaleString('es-EC', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: true,
+        timeZone: 'America/Guayaquil'
+    });
+}
+
+// Modificar la parte relevante en la función cargarComentarios
+if (data && Array.isArray(data)) {
+    data.forEach(item => {
+        if (!item.error) {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${item.nombreUsuario || 'Anónimo'}</td>
+                <td>${item.comentario}</td>
+                <td>${'★'.repeat(item.calificacion)}${'☆'.repeat(5-item.calificacion)}</td>
+                <td>${formatearFecha(item.fecha)}</td>
+            `;
+            comentariosContainer.appendChild(row);
+        }
+    });
+}
+
+
 function verificarUsuario() {
     var username = document.getElementById('username').value;
     var password = document.getElementById('password').value;

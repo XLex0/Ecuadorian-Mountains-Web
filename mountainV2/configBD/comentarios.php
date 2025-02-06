@@ -25,7 +25,10 @@ if (isset($_POST['searchText'])) {
         $id = $searchText;
     }
     
-    // Obtener comentarios
+    // Establecer la zona horaria para Ecuador
+    date_default_timezone_set('America/Guayaquil');
+    
+    // Obtener comentarios y convertir la fecha a la zona horaria local
     $sql = "SELECT 
                 c.comentario, 
                 CASE 
@@ -33,7 +36,7 @@ if (isset($_POST['searchText'])) {
                     ELSE COALESCE(u.username, 'Usuario')
                 END as nombreUsuario,
                 c.calificacion, 
-                c.fecha_comentario as fecha
+                CONVERT_TZ(c.fecha_comentario, @@session.time_zone, '-05:00') as fecha
             FROM comentarios c
             LEFT JOIN usuarios u ON c.usuario_id = u.id
             WHERE c.montana_id = ?
